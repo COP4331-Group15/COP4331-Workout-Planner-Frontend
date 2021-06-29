@@ -57,7 +57,7 @@ app.use((req, res, next) =>
     next();
 });
 
-/*
+
 // If we're hosted on the server, it's best to set a "static" folder. For this case,
 // we'll bind the frontend/build static folder, so we attempt to serve that to the
 // clients.
@@ -72,7 +72,7 @@ if(process.env.NODE_ENV === 'production')
 }
 
 // DISABLED UNTIL FRONTEND IS FRAMEWORKED
-*/
+
 
 // Begin execution of our application
 app.listen(PORT, () => {
