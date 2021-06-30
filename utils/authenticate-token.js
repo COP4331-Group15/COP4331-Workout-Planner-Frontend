@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 const PRIVATE_KEY_ID = process.env.FIREBASE_PRIVATE_KEY_ID;
-const PRIVATE_KEY = process.env.FIREBASE_PRIVATE_KEY;
+const PRIVATE_KEY = (process.env.NODE_ENV === "production" ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY) : process.env.FIREBASE_PRIVATE_KEY);
 const CLIENT_EMAIL = process.env.FIREBASE_CLIENT_EMAIL;
 const CLIENT_ID = process.env.FIREBASE_CLIENT_ID;
 const AUTH_URI = process.env.FIREBASE_AUTH_URI;
