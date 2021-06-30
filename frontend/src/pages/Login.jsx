@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
-import firebase from "../fire";
+import firebase from "../services/fire";
 
 const Login = () => {
     const [email, setEmail] = useState();

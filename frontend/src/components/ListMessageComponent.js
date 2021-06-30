@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-
-const url = 'https://workout-sprinter.herokuapp.com/api/test';
+import { getTestData } from '../services/communication';
 
 function ListMessageComponent()
 {
@@ -17,12 +15,12 @@ function ListMessageComponent()
     // gets the data from our API endpoint, parses it, and updates our state
     // using setData.
     React.useEffect(() => {
+
         const fetchData = async () => {
-            (async () => {
-                const fetchedData = await axios.post(url);
-                setData(fetchedData.data);
-                console.log(fetchedData);
-            })();
+            getTestData().then((d) => {
+                setData(d);
+                console.log(d);
+            });
         }
         fetchData();
     }, []);

@@ -1,26 +1,18 @@
-exports.setApp = function (app, firebase) {
-    app.post('/api/test', async (req, res, next) => {
+const FBEndpoints = require('./utils/firebase-endpoints');
 
-        // Create a connection reference to the database
-        var reference = firebase.database().ref();
-
-        // Create the payload object we'll be returning
+exports.setApp = function (app) {
+    app.get('/api/test', async (req, res, next) => {
+        // Check our authentication status
+        const auth = req.currentUser;
+        const token = req.authToken;
         var ret;
+        if (auth) {
+            console.log('authenticated!', auth);
 
-        // Attempt to get our test data
-        try {
-            // Await our data from /test
-            var snap = await reference.child("test").get();
-            // Our data exists, build our return object
-            if(snap.exists()) {
-                ret = {message: "Test Successful!", data: snap.val()}
-            } else {
-            // Our data doesn't exist, build our return object
-                ret = {message: "Test Mostly Successful!"}
-            }
-        } catch (error) {
-            // Something wrong happen :(
-            ret = {message: "error", name: error.name, eMessage: error.message}
+            var result = await FBEndpoints.getValueAtPath(token, "/test");
+            ret = {message: "Test successful!", data: result};
+        } else {
+            ret = {message: "Not Authenticated!"}
         }
         
         // (res)olve our query with a 200 (OK) status, returning a JSON object (ret)

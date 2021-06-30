@@ -17,30 +17,13 @@ app.set('port', PORT);
 app.use(cors());
 app.use(bodyParser.json());
 
-// Load our Firebase environment variables
-const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
-const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
-const FIREBASE_MESSAGE_SENDER_ID = process.env.FIREBASE_MESSAGE_SENDER_ID;
-const FIREBASE_APP_ID = process.env.FIREBASE_APP_ID;
-
-const firebase = require('firebase/app');
-require('firebase/auth');
-require('firebase/database');
-
-var firebaseConfig = {
-    apiKey: FIREBASE_API_KEY,
-    authDomain: FIREBASE_PROJECT_ID + ".firebaseapp.com",
-    projectId: FIREBASE_PROJECT_ID,
-    storageBucket: FIREBASE_PROJECT_ID + ".appspot.com",
-    messageSenderId: FIREBASE_MESSAGE_SENDER_ID,
-    appId: FIREBASE_APP_ID
-}
-
-firebase.initializeApp(firebaseConfig);
+// Authenticate API requests
+const decodeIDToken = require('./utils/authenticate-token');
+app.use(decodeIDToken);
 
 // Bind our endpoints
 var api = require('./api.js');
-api.setApp(app, firebase);
+api.setApp(app);
 
 // Enable CORS access on our API - great for our testing purposes.
 app.use((req, res, next) =>

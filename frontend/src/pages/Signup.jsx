@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import firebase from "../fire";
+import {Link} from "react-router-dom";
+import firebase from "../services/fire";
 
 const Signup = () => {
     const [email, setEmail] = useState();
@@ -36,8 +37,10 @@ const Signup = () => {
                 <input type="password" onChange={({ target }) => setPassword(target.value)} placehoder="Password" />
                 <br />
                 <button type="submit">
-                    Sign in
+                    Sign up
                 </button>
+                <br />
+                <Link to="/">Log In</Link>
             </form>
         </div>
     )

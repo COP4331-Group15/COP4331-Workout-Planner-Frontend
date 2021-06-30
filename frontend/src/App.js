@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import fire from './fire';
+import fire from './services/fire';
 
-import LoginPage from './pages/LoginPage';
 import TestPage from './pages/TestPage';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
