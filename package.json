@@ -2,7 +2,8 @@
   "name": "frontend",
   "version": "1.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
+    "npm": "7.19.x"
   },
   "dependencies": {
     "axios": "^0.21.1",
