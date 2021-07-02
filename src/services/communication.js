@@ -1,10 +1,7 @@
 import axios from "axios";
 import fire from "./fire";
 
-var url = "http://localhost:5000/api";
-if(process.env.NODE_ENV === 'production') {
-    url = 'http://workout-sprinter-api.herokuapp.com/api';
-}
+const url = 'https://workout-sprinter-api.herokuapp.com/api';
 
 const createToken = async () => {
     const user = fire.auth().currentUser;
