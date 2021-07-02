@@ -3,7 +3,7 @@ import fire from "./fire";
 
 var url = "http://localhost:5000/api";
 if(process.env.NODE_ENV === 'production') {
-    url = 'https://workout-sprinter-api.herokuapp.com/api';
+    url = 'http://workout-sprinter-api.herokuapp.com/api';
 }
 
 const createToken = async () => {
