@@ -1,0 +1,46 @@
+
+.daysback{
+    padding: 8px;
+    height: 50px;
+    width:auto;
+    background-color: silver;
+    box-sizing: border-box;
+    display: 'flex';
+    padding: grid;
+    overflow: 'auto';
+}
+
+.days{
+    padding: 8px;
+    width: 150px;
+    margin: 0px 8px 0px 0px;
+    background-color: lavender;
+    border: 2px solid royalblue;
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.container{
+    height: 400px;
+    width:900px;
+    background-color: silver;
+}
+
+.draggable{
+    padding: 10px;
+    height: 400px;
+    width: 150px;
+    cursor: move;
+    background-color: lavender;
+    border: 2px solid royalblue;
+    display: inline-block;
+    justify-content: space-between; 
+    box-sizing: border-box;
+}
+
+.dragging{
+    opacity: 0.5;
+    background-color: royalblue;
+    display: inline-block;
+    justify-content: space-between; 
+}
