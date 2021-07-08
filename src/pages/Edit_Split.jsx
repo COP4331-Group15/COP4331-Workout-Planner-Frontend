@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
-import firebase from "../services/fire";
+//import firebase from "../services/fire";
 import ReactDOM from 'react-dom';
 import './styles.css'; 
 //import Split_day from "../components/Split_day.js";
