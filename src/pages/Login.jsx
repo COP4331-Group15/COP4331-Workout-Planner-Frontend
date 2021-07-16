@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import firebase from "../services/fire";
+import './styles.css'; 
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -14,19 +15,39 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" onChange={({ target }) => setEmail(target.value)} placeholder="Email" />
-                <br />
-                <input type="password" onChange={({ target }) => setPassword(target.value)} placehoder="Password" />
-                <br />
-                <button type="submit">
-                    Sign in
-                </button>
-            </form>
-            <Link to="/signup">Sign Up</Link>
-        </div>
+        <form onSubmit = {handleSubmit}>
+            <br /><br /><br />
+            <div class = "container2">
+                <h1>Exercise Planner</h1> 
+                <h2>Sign In</h2>
+
+                <div className="form-group">
+                    <label>Email address</label>
+                    <input type="email" onChange={({ target }) => setEmail(target.value)} className="form-control" placeholder="Enter email" />
+                </div>
+
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" onChange={({ target }) => setPassword(target.value)} className="form-control" placeholder="Enter password" />
+                </div>
+
+                <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                    </div>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Log In</button>
+                <p className="new-login text-right">
+                    New User? <a href="/signup">Create Account</a>
+                </p>
+    
+            </div>
+
+        </form>
+        
+    
     )
 };
 

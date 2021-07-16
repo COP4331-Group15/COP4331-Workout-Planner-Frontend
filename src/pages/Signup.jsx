@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import firebase from "../services/fire";
@@ -5,6 +6,8 @@ import firebase from "../services/fire";
 const Signup = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [firstName, setFirst] = useState();
+    const [lastName, setLast] = useState();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,21 +31,53 @@ const Signup = () => {
         });
     }
 
+
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" onChange={({ target }) => setEmail(target.value)} placeholder="Email" />
-                <br />
-                <input type="password" onChange={({ target }) => setPassword(target.value)} placehoder="Password" />
-                <br />
-                <button type="submit">
-                    Sign up
-                </button>
-                <br />
-                <Link to="/">Log In</Link>
-            </form>
-        </div>
+        <form onSubmit = {handleSubmit}>
+            <h1>! </h1>
+            <div class = "container3">
+                <div>
+                <h1>Exercise Planner</h1>    
+                <h2>Sign Up</h2>
+              
+
+                <div className="form-group">
+                    <label>First name</label>
+                    <input type="text" onChange={({ target }) => setFirst(target.value)}className="form-control" placeholder="First name" />
+                </div>
+
+                <div className="form-group">
+                    <label>Last name</label>
+                    <input type="text" onChange={({ target }) => setLast(target.value)}className="form-control" placeholder="Last name" />
+                </div>
+
+                <div className="form-group">
+                    <label>Email address</label>
+                    <input type="email" onChange={({ target }) => setEmail(target.value)} className="form-control" placeholder="Enter email" />
+                </div>
+
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" onChange={({ target }) => setPassword(target.value)}className="form-control" placeholder="Enter password" />
+                </div>
+
+                <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                    </div>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                <p className="new-login text-right">
+                    Already registered <a href="login">Log in</a>
+                </p>
+          
+                    
+                </div>
+              
+            </div>
+        </form>
     )
 };
 
