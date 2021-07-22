@@ -31,7 +31,8 @@ const HeroSection = () => {
                 Use our training algorithm to build and try your personalized workout plan now!
                 </HeroP>
                 <HeroBtnWrapper>
-                    <Button to='signup' 
+                    <Button to='signup'
+                    smooth={true} duration={500} spy={true} exact='true' offset={-80} 
                     onMouseenter={onHover} 
                     onMouseLeave={onHover}
                     primary='true'

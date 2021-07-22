@@ -8,15 +8,16 @@ export const homeObjOne = {
     lightText: true,
     lightTextDesc: true,
     topLine: '"What is Workout Planner?"',
-    headline: 'Workout Planner builds your personalized workout of the day.​​',
-    description: 'To build your custom-fit workout, our training algorithm understands your strength-training ability, studies your past workouts and adapts to your available gym equipment.',
+    headline: 'Workout Planner keeps track of your workouts.​​',
+    description: 'Create your customized workout, to build your strength, and study your past workouts to adapts to your available gym equipment.',
     buttonLabel: 'Get started',
     imgStart: false,
     img: image1,
     alt: 'Tracker',
     dark: true,
     primary: true,
-    darkText: false
+    darkText: false,
+    directory: '/signup1'
 }
 
 export const homeObjTwo = {
@@ -25,15 +26,16 @@ export const homeObjTwo = {
     lightText: false,
     lightTextDesc: false,
     topLine: '"Why was Workout Planner created?"',
-    headline: 'A workout plan uniquely designed to push your limits.​​​',
-    description: 'Workout Planner fills in the sets, reps and weight for each exercise based on strength-training best practices. As you get stronger or master exercises, Workout Planner adapts to push you a bit harder in your next workout.',
+    headline: 'Workout plan designed to push your limits.​​​',
+    description: 'Workout Planner fills in the sets, reps and weight for each exercise based on you. As you get stronger, Workout Planner adapts to push yourself for your next workout.',
     buttonLabel: 'Learn More',
     imgStart: true,
     img: image2,
     alt: 'Workout',
     dark: false,
     primary: false,
-    darkText: true
+    darkText: true,
+    directory: '/calendar'
 }
 
 export const homeObjThree = {
@@ -47,8 +49,9 @@ export const homeObjThree = {
     buttonLabel: 'Get started',
     imgStart: false,
     img: image3,
-    alt: 'Tracker',
+    alt: 'Park',
     dark: true,
     primary: true,
-    darkText: false
+    darkText: false,
+    directory: '/signup1'
 }

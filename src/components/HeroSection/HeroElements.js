@@ -7,9 +7,10 @@ export const HeroContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0 30px;
-    height: 800px;
+    height: 1000px;
     position: relative;
     z-index: 1;
+    margin-top: -80px;
 
     :before{
         content: '';
@@ -73,6 +74,7 @@ export const HeroP = styled.p`
     color: #fff;
     font-size: 24px;
     text-align: center;
+    
 
     @media screen and (max-width: 768px) {
         font-size: 24px;
