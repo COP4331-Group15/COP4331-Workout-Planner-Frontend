@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import axios from 'axios'
+import firebase from "../services/fire";
 //import Split_day from "../components/Split_day.js";
 
 
@@ -29,17 +31,30 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 //   )
 // }
 
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
+
+const getItems = (count) => {
+  var token = firebase.auth().currentUser.getIdToken();
+  axios({
+    method: 'post',
+    url: 'https://workout-sprinter-api.herokuapp.com/api',
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    data: {
+      firstName: 'Fred',
+      lastName: 'Flintstone'
+    }
+  });
+  return Array.from({ length: count }, (v, k) => k).map(k => ({
     id: `split_day_id-${k}`,
     content: `split day ${k}`,
-  }));
+    number: k,
+  }))};
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
   return result;
 };
 
@@ -66,10 +81,12 @@ class Split_table extends React.Component {
     super(props);
     this.state = {
       items: getItems(6),
+      props: props,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
     this.dec_days = this.dec_days.bind(this);
     this.inc_days = this.inc_days.bind(this);
+    this.updatedays = this.updatedays.bind(this);
   }
   onDragEnd(result) {
     if (!result.destination) {
@@ -106,17 +123,28 @@ class Split_table extends React.Component {
     });
   }
 
+  updatedays(){
+
+  }
+
   render() {
     return (
       <div>
-        <div className ="daysback">
-          <div className ="days">Day 1</div><div className ="days">Day 2</div><div className ="days">Day 3</div><div className ="days">Day 4</div><div className ="days">Day 5</div>
+        <div className ="title_part">
+          <div className="header_split">
+            Edit Split: {this.state.props.split_id}
+          </div>
           <button className="btn" onClick={this.dec_days}>-</button>
           <button className="btn" onClick={this.inc_days}>+</button>
+          <button className="btn" onClick={this.updatedays}>Update</button>
+        </div>
+        <div className ="daysback">
+            {this.state.items.map((item, index) => (<div className ="days">Day {index+1}</div>))}
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
+            <div>
               <div
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
@@ -135,12 +163,17 @@ class Split_table extends React.Component {
                       )}
                     >
                       {item.content}
+                      <p></p>
+                      <input type="text" id="lname" name="lname" value={item.content} style={{width:100}}></input>
+                      <p></p>
+                      <a href={"/Edit_day?day_id=" + item.number} class="button">Edit day</a>
                     </div>
                   )}
                   </Draggable>
                 ))}
                 {provided.placeholder}
               </div>
+            </div>
             )}
           </Droppable>
         </DragDropContext>

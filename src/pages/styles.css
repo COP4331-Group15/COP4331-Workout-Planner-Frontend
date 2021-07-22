@@ -1,18 +1,39 @@
 
-.daysback{
+
+.header_split{
+    color: black;
+    font-size: xx-large;
+}
+
+.title_part{
     padding: 8px;
-    height: 50px;
+    height: 80px;
     width:auto;
     background-color: silver;
     box-sizing: border-box;
     display: 'flex';
     padding: grid;
     overflow: 'auto';
+    white-space: nowrap;
+}
+
+
+.daysback{
+    padding: 8px;
+    height: 50px;
+    max-height: 50px;
+    width:auto;
+    background-color: silver;
+    box-sizing: border-box;
+    padding: grid;
+    overflow: 'auto';
+    display: flex;
 }
 
 .days{
     padding: 8px;
-    width: 150px;
+    width: 166px;
+    min-width: 124px;
     margin: 0px 8px 0px 0px;
     background-color: lavender;
     border: 2px solid royalblue;

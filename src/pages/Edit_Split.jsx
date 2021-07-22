@@ -6,6 +6,7 @@ import './styles.css';
 //import Split_day from "../components/Split_day.js";
 import Split_table from "../components/Split_table.js";
 import { DragDropContext } from "react-beautiful-dnd";
+//import background_img_edit_spilts from './risen-wang-20jX9b35r_M-unsplash.jpg';
 
 const Edit_Split = () => {
     const [email, setEmail] = useState();
@@ -34,11 +35,10 @@ const Edit_Split = () => {
     //     event.preventDefault();
     //     split_days_arr.push(<Split_day key="uniqueId2" name="eenewee"/>);
     // };
-
+    document.body.style = "background-Image: url('/risen-wang-20jX9b35r_M-unsplash.jpg'); background-size: auto 200%;";
     return (
         <div>
-            <h2>Edit Split: {split_i}</h2>
-            <Split_table id="split_table_1">
+            <Split_table id="split_table_1" split_id = {split_i}>
             </Split_table>
 
             {/* <div className ="container" onDragOver={dragoverfunc}>
