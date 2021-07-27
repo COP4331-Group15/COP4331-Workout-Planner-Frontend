@@ -18,16 +18,16 @@ const Login = () => {
         <form onSubmit = {handleSubmit}>
             <br /><br /><br />
             <div class = "container2">
-                <h1>Exercise Planner</h1> 
-                <h2>Sign In</h2>
+                
+                <h1>Log In</h1><br></br>
 
                 <div className="form-group">
-                    <label>Email address</label>
+                    <label>Email address:</label><br></br>
                     <input type="email" onChange={({ target }) => setEmail(target.value)} className="form-control" placeholder="Enter email" />
                 </div>
-
+                <br></br>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Password:</label><br></br>
                     <input type="password" onChange={({ target }) => setPassword(target.value)} className="form-control" placeholder="Enter password" />
                 </div>
 
@@ -37,8 +37,8 @@ const Login = () => {
                         <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
                     </div>
                 </div>
-
-                <button type="submit" className="btn btn-primary btn-block">Log In</button>
+                <br></br>
+                <button type="submit" class="button button1">Log In</button>
                 <p className="new-login text-right">
                     New User? <a href="/signup">Create Account</a>
                 </p>
