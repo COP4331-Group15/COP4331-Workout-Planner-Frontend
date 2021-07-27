@@ -38,7 +38,9 @@ function App() {
         </>
       ) : (
         <>
-          Hello World!
+          <Switch>
+            <Route path='/' component={Calendar} exact />
+          </Switch>
         </>
       )}
     </Router>
