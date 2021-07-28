@@ -146,9 +146,7 @@ class Split_table extends React.Component {
   }
 
   componentDidMount(){
-    async () => {
       this.asyncalicious();
-    }
   }
 
   asyncalicious = async () => {
