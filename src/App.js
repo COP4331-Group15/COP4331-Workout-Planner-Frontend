@@ -40,6 +40,7 @@ function App() {
         <>
           <Switch>
             <Route path='/' component={Calendar} exact />
+            <Route path="/edit"><Edit_Split /></Route>     
           </Switch>
         </>
       )}
