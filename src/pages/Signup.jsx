@@ -2,6 +2,13 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import firebase from "../services/fire";
+import Navbar from '../components/Navbar';
+import {NavBarHome} from '../components/Navbar/data';
+import Sidebar from '../components/Sidebar';
+import {SidebarHome} from '../components/Sidebar/data';
+import HeroSection from '../components/HeroSection';
+import Footer from '../components/Footer';
+
 
 const Signup = () => {
     const [email, setEmail] = useState();
@@ -30,11 +37,16 @@ const Signup = () => {
             console.log(error);
         });
     }
+const [isOpen, setIsOpen] = useState(false)
 
+const toggle = () => {setIsOpen(!isOpen)}
 
     return (
+        <>
+        <Sidebar isOpen={isOpen} toggle={toggle} {...SidebarHome}/>
+        <Navbar toggle={toggle} {...NavBarHome}/>
         <form onSubmit = {handleSubmit}>
-            <h1>! </h1>
+            <br /><br /><br />
             <div class = "container3">
                 <div>
             
@@ -69,14 +81,17 @@ const Signup = () => {
                 <br></br>
                 <button type="submit" class="button button1">Sign Up</button>
                 <p className="new-login text-right">
-                    Already registered <a href="login">Log in</a>
+                    Already registered? <a href="login">Log in</a>
                 </p>
           
                     
                 </div>
               
             </div>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </form>
+        <Footer></Footer>
+        </>
     )
 };
 
