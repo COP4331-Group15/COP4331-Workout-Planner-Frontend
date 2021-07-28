@@ -152,7 +152,7 @@ class Split_table extends React.Component {
   }
 
   asyncalicious = async () => {
-    var token = firebase.auth().currentUser.getIdToken();
+    var token = await firebase.auth().currentUser.getIdToken();
     const items1 = axios({
       method: 'get',
       url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth().currentUser.uid}`,
