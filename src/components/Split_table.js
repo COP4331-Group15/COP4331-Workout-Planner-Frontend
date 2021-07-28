@@ -10,9 +10,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
-import {NavBarSplit} from '../components/Navbar/data'
+//import Navbar from '../components/Navbar'
+//import Sidebar from '../components/Sidebar'
+//import {NavBarSplit} from '../components/Navbar/data'
 //import { SidebarSplit } from '../components/Sidebar/data';
 
 //import Split_day from "../components/Split_day.js";
@@ -570,7 +570,7 @@ class Split_table extends React.Component {
     return (
       <div>
 		{/*<Sidebar isOpen={isOpen} toggle={toggle} {...SidebarSplit}/>*/}
-        <Navbar toggle={false} {...NavBarSplit}/>
+        {/*<Navbar toggle={false} {...NavBarSplit}/>*/}
         <div className ="title_part">
           <div className="header_split">
             Edit Split: {this.state.props.split_id}
