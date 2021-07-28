@@ -21,3 +21,15 @@ export const NavBarCalendar = {
     idcontent4: 'Sign Out'
 
 }
+
+export const NavBarSplit = {
+    id1: '/',
+    id2: '/',
+    id3: '/',
+    id4: '/edit',
+    idcontent1: 'Home',
+    idcontent2: '',
+    idcontent3: '',
+    idcontent4: 'Sign Out'
+
+}

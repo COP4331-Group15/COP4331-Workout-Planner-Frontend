@@ -1,7 +1,7 @@
 
 
 .header_split{
-    color: black;
+    color: white;
     font-size: xx-large;
 }
 
@@ -9,7 +9,7 @@
     padding: 8px;
     height: 80px;
     width:auto;
-    background-color: silver;
+    background-color: #282c34;
     box-sizing: border-box;
     display: 'flex';
     padding: grid;
@@ -23,10 +23,10 @@
     height: 50px;
     max-height: 50px;
     width:auto;
-    background-color: silver;
+    background-color: #282c34;
     box-sizing: border-box;
     padding: grid;
-    overflow: 'auto';
+    overflow: hidden;
     display: flex;
 }
 
@@ -35,16 +35,17 @@
     width: 166px;
     min-width: 124px;
     margin: 0px 8px 0px 0px;
-    background-color: lavender;
-    border: 2px solid royalblue;
+    background-color: #4CAF50;
+    border: 2px solid #678f5b;
     display: inline-flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 .container{
     height: 400px;
     width:900px;
-    background-color: silver;
+    background-color: #282c34;
 }
 
 .draggable{
@@ -52,8 +53,8 @@
     height: 400px;
     width: 150px;
     cursor: move;
-    background-color: lavender;
-    border: 2px solid royalblue;
+    background-color: #4CAF50;
+    border: 2px solid #678f5b;
     display: inline-block;
     justify-content: space-between; 
     box-sizing: border-box;
@@ -61,10 +62,11 @@
 
 .dragging{
     opacity: 0.5;
-    background-color: royalblue;
+    background-color: #678f5b;
     display: inline-block;
     justify-content: space-between; 
 }
+
 
 
 
