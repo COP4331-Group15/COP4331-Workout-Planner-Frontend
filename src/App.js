@@ -32,7 +32,7 @@ function App() {
             <Route path='/calendar' component={Calendar} exact />
             <Route path='/' component={Home} exact />
             <Route path="/login"><Login /></Route>
-            <Route path="/signup1"><SignUp /></Route>       
+            <Route path="/signup"><SignUp /></Route>       
           </Switch>
         </>
       ) : (
