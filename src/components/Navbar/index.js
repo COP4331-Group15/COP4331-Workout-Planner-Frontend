@@ -20,10 +20,12 @@ const Navbar = ({
   id2, 
   id3,
   id4, 
+  id5,
   idcontent1, 
   idcontent2, 
   idcontent3,
-  idcontent4
+  idcontent4,
+  idcontent5
 }) => {
   const [scrollNav, setScrollNav] = useState(false)
   
@@ -63,6 +65,9 @@ const Navbar = ({
               </NavItem>
               <NavItem>
                 <NavLinks to ={id3} smooth={true} duration={500} spy={true} exact='true' offset={-80}>{idcontent3}</NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks to = '/' onClick ={handleLogout} smooth={true} duration={500} spy={true} exact='true' offset={-80}>{idcontent5}</NavLinks>
               </NavItem>
             </NavMenu>
             <NavBtn>
