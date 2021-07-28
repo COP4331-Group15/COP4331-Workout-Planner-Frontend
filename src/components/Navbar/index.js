@@ -31,6 +31,8 @@ const Navbar = ({
 }) => {
   const [scrollNav, setScrollNav] = useState(false)
   
+  const history = useHistory()
+  
   const changeNav = ()=> {
     if(window.scrollY >= 80) {
       setScrollNav(true)
@@ -45,6 +47,11 @@ const Navbar = ({
 
   const toggleHome = () => {
     scroll.scrollToTop();
+  }
+  
+    const handleLogout = ()=>{
+    firebase.auth().signOut().then(()=>{history.push('/Login')})
+
   }
 
     return (
