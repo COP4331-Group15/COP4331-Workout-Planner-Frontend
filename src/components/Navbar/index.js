@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { FaBars, FaDumbbell } from 'react-icons/fa';
 import {animateScroll as scroll} from 'react-scroll';
-import firebase from "../../services/fire";
+import firebase from "../../services/";
 import {useHistory} from "react-router-dom";
 import {
   Nav,
