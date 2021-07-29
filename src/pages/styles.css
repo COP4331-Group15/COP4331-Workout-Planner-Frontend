@@ -98,7 +98,7 @@
   box-sizing: border-box;
 }
 body {
-  background: url("../images/pexels-victor-freitas-841130.jpg") no-repeat center center fixed;
+  /* background: url("../images/pexels-victor-freitas-841130.jpg") no-repeat center center fixed; */
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -120,6 +120,7 @@ body {
 }
 
 .button1 {
+  border-radius: 8px;
   background-color: white; 
   color: black; 
   border: 2px solid #4CAF50;
@@ -206,7 +207,7 @@ body, html, .App, #root, .auth-wrapper {
   border: 3px solid rgb(94, 94, 94);
   padding: 10px;
 
-  height: 300px;
+  height: 320px;
   width:350px;
 
 }
@@ -233,12 +234,15 @@ body, html, .App, #root, .auth-wrapper {
   border: 3px solid rgb(94, 94, 94);
   padding: 10px;
 
-  height: 400px;
+  height: 420px;
   width:350px;
 }
 
 
 .custom-control-label {
+  font-weight: 400;
+}
+.custom-control-checkbox {
   font-weight: 400;
 }
 
@@ -254,7 +258,13 @@ body, html, .App, #root, .auth-wrapper {
 .new-login a {
   color: #167bff;
 }
+input{
+  border-radius: 4px;
+  width: 100%;
+  text-size-adjust: 100%;
 
+  
+}
 
 
 

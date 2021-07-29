@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { FaBars, FaDumbbell } from 'react-icons/fa';
 import {animateScroll as scroll} from 'react-scroll';
+import firebase from "../../services/";
+import {useHistory} from "react-router-dom";
 import {
   Nav,
   NavbarContainer,
@@ -20,12 +22,16 @@ const Navbar = ({
   id2, 
   id3,
   id4, 
+  id5,
   idcontent1, 
   idcontent2, 
   idcontent3,
-  idcontent4
+  idcontent4,
+  idcontent5
 }) => {
   const [scrollNav, setScrollNav] = useState(false)
+  
+  const history = useHistory()
   
   const changeNav = ()=> {
     if(window.scrollY >= 80) {
@@ -41,6 +47,11 @@ const Navbar = ({
 
   const toggleHome = () => {
     scroll.scrollToTop();
+  }
+  
+    const handleLogout = ()=>{
+    firebase.auth.signOut().then(()=>{history.push('/Login')})
+
   }
 
     return (
@@ -63,6 +74,9 @@ const Navbar = ({
               </NavItem>
               <NavItem>
                 <NavLinks to ={id3} smooth={true} duration={500} spy={true} exact='true' offset={-80}>{idcontent3}</NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks to = '/' onClick ={handleLogout} smooth={true} duration={500} spy={true} exact='true' offset={-80}>{idcontent5}</NavLinks>
               </NavItem>
             </NavMenu>
             <NavBtn>
