@@ -1,5 +1,5 @@
 import axios from "axios";
-import fire from "./fire";
+import fire from "./Firebase";
 
 const url = 'https://workout-sprinter-api.herokuapp.com/api';
 

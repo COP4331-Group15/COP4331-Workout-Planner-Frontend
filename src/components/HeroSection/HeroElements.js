@@ -7,10 +7,11 @@ export const HeroContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0 30px;
-    height: 1000px;
+    height: 100vh;
+    width: 100%;
     position: relative;
     z-index: 1;
-    margin-top: -80px;
+    //margin-top: -80px;
 
     :before{
         content: '';
@@ -34,7 +35,7 @@ export const HeroBg = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 `
 
 export const VideoBg = styled.video`
@@ -52,7 +53,7 @@ export const HeroContent = styled.div`
     padding: 8px 24px;
     display: flex;
     flex-direction: column;
-    align-item: center;
+    align-items: center;
 `
 
 export const HeroH1 = styled.h1`
@@ -74,6 +75,7 @@ export const HeroP = styled.p`
     color: #fff;
     font-size: 24px;
     text-align: center;
+    max-width: 600px;
     
 
     @media screen and (max-width: 768px) {

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
-import firebase from "../services/fire";
+import firebase from 'firebase'
+// import firebase from "../services/";
 import createToken from "../services/communication";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -150,6 +151,7 @@ class Split_table extends React.Component {
   }
 
   asyncalicious = async () => {
+    try{
     var token = await firebase.auth().currentUser.getIdToken();
     const items1 = axios({
       method: 'get',
@@ -239,7 +241,9 @@ class Split_table extends React.Component {
         focus: res.data.Focus,
       });
     });
-  }
+  } catch(err){
+    console.error('error.stack');
+  }}
 
   dec_days = async () => {
     const items = Array.from(this.state.items);
