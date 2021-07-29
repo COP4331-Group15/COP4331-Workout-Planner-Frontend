@@ -50,7 +50,7 @@ const Navbar = ({
   }
   
     const handleLogout = ()=>{
-    firebase.auth().signOut().then(()=>{history.push('/Login')})
+    firebase.auth.signOut().then(()=>{history.push('/Login')})
 
   }
 

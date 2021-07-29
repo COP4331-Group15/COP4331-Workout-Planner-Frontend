@@ -14,6 +14,19 @@ import Typography from '@material-ui/core/Typography';
 
 import useStyles from '../config/theme.signinup';
 import Copyright from '../components/Copyright';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: '#01BF71',
+    },
+    background: {
+      paper: "#010606"
+    }
+  }
+})
 
 function SignUp(props) {
   const classes = useStyles();
@@ -51,7 +64,8 @@ function SignUp(props) {
   const isValid = user.name === '' || user.email === '' || user.password === '';
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -131,6 +145,8 @@ function SignUp(props) {
         </div>
       </Grid>
     </Grid>
+    </ThemeProvider>
+    
   );
 };
 

@@ -18,6 +18,19 @@ import useStyles from '../config/theme.signinup';
 import Copyright from '../components/Copyright';
 
 import PasswordForget from '../components/PasswordForget';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: '#01BF71',
+    },
+    background: {
+      paper: "#010606"
+    }
+  }
+})
 
 function SignIn(props) {
   const classes = useStyles();
@@ -44,7 +57,13 @@ function SignIn(props) {
 
   const isValid = user.email === '' || user.password === '';
 
+
+
   return (
+
+    <ThemeProvider theme={theme}>
+
+    
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -116,6 +135,7 @@ function SignIn(props) {
         </div>
       </Grid>
     </Grid>
+    </ThemeProvider>
   );
 };
 
