@@ -17,7 +17,7 @@ export const homeObjOne = {
     dark: true,
     primary: true,
     darkText: false,
-    directory: '/signup1'
+    directory: '/signup'
 }
 
 export const homeObjTwo = {
@@ -53,5 +53,5 @@ export const homeObjThree = {
     dark: true,
     primary: true,
     darkText: false,
-    directory: '/signup1'
+    directory: '/signup'
 }
