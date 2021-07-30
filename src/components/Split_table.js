@@ -83,7 +83,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 8px 0 0`,
   background: isDragging ? '#678f5b' : '#4CAF50',
   border: `2px solid #678f5b`,
-  width: `150px`,
+  width: `166px`,
   ...draggableStyle,
 });
 
@@ -206,15 +206,15 @@ class Split_table extends React.Component {
       if(typeof res.data.Workouts !== 'undefined'){
         items1 = await Promise.all(Array.from({ length: res.data.Workouts.length }, (v, k) => k).map( async (k) => {
           //{muscleGroup, focusTypes, name, sets, repititions, duration, resistance, exercises,split,unworkable}
-          var namey = "~empty name";
-          var muscleGroup;
+          //var namey = "~empty name";
+          //var muscleGroup;
           //var focusTypes;
-          var sets;
-          var repititions;
-          var duration;
-          var resistance;
+          //var sets;
+          //var repititions;
+          var startTime;
+          //var resistance;
           var exercises = [];
-          var split;
+          //var split;
           var unworkable;
           await axios({
             method: 'get',
@@ -227,14 +227,14 @@ class Split_table extends React.Component {
             if(res == null){
             }
             console.log(res);
-            namey = res.data.Name;
-            muscleGroup = res.data.MuscleGroup;
+            //namey = res.data.Name;
+            //muscleGroup = res.data.MuscleGroup;
             //focusTypes = res.data.FocusTypes;
-            sets = res.data.Sets;
-            repititions = res.data.Repititions;
-            duration = res.data.Duration;
-            resistance = res.data.Resistance;
-            split = res.data.Split;
+            //sets = res.data.Sets;
+            //repititions = res.data.Repititions;
+            startTime = res.data.StartTime;
+            //resistance = res.data.Resistance;
+            //split = res.data.Split;
             unworkable = res.data.Unworkable;
             if(typeof res.data.Exercises !== 'undefined'){
               exercises = res.data.Exercises;
@@ -288,18 +288,18 @@ class Split_table extends React.Component {
           console.log(exercises);
           return{
             id: Math.random().toString(20),
-            content: namey,
+            //content: namey,
             number: k,
             iddd: res.data.Workouts[k],
-            muscleGroup: muscleGroup,
+            //muscleGroup: muscleGroup,
             //focusTypes: focusTypes,
-            sets: sets,
-            repititions: repititions,
-            duration: duration % 60,
-            duration0: Math.floor(duration / 60),
-            resistance: resistance,
+            //sets: sets,
+            //repititions: repititions,
+            startTime: startTime % 60,
+            startTime0: Math.floor(startTime / 60),
+            //resistance: resistance,
             exercises: exercises,
-            split: split,
+            //split: split,
             unworkable: unworkable,
             V: "V",
             Vshow: "none",
@@ -308,8 +308,8 @@ class Split_table extends React.Component {
       }else{
         items1 = [];
       }
-      console.log("IUWHGRFWOIEURHGWOIERUGJHWEOIRLGUHWIER");
-      console.log(items1);
+      //console.log("IUWHGRFWOIEURHGWOIERUGJHWEOIRLGUHWIER");
+      //console.log(items1);
       this.setState({
         items: items1,
         startDate: date,
@@ -368,15 +368,15 @@ class Split_table extends React.Component {
       var token = await firebase.auth().currentUser.getIdToken();
       const date = new Date();
       var obj = {
-        muscleGroup: "Default",
+        //muscleGroup: "Default",
         //focusTypes: [1, 0, 0, 0, 0],
-        name: "New Workout",
-        sets: 0,
-        repititions: 0,
-        duration: 0,
-        resistance: 0,
+        ///name: "New Workout",
+        //sets: 0,
+        //repititions: 0,
+        startTime: 0,
+        //resistance: 0,
         exercises: [],
-        split: 0,
+        //split: 0,
         unworkable: 0
       };
       var js = JSON.stringify(obj);
@@ -392,17 +392,17 @@ class Split_table extends React.Component {
         console.log(res);
         items.push({
           id: Math.random().toString(20),
-          content: `New Workout`,
+          //content: `New Workout`,
           iddd: res.data.data.name,
-          muscleGroup: "Default",
+          //muscleGroup: "Default",
           //focusTypes: [1, 0, 0, 0, 0],
-          name: "New Workout",
-          sets: 0,
-          repititions: 0,
-          duration: 0,
-          resistance: 0,
+          //name: "New Workout",
+          //sets: 0,
+          //repititions: 0,
+          startTime: 0,
+          //resistance: 0,
           exercises: [],
-          split: 0,
+          //split: 0,
           unworkable: 0,
           Vshow: "none",
           V: "V"
@@ -577,15 +577,15 @@ class Split_table extends React.Component {
     console.log("exs");
     console.log(exs);
     var obj = {
-      name: item.content,
-      muscleGroup: item.muscleGroup,
+      //name: item.content,
+      //muscleGroup: item.muscleGroup,
       //focusTypes: item.focusTypes,
-      sets: item.sets,
-      repititions: item.repititions,
-      duration: item.duration + item.duration0*60,
-      resistance: item.resistance,
+      //sets: item.sets,
+      //repititions: item.repititions,
+      startTime: item.startTime + item.startTime0*60,
+      //resistance: item.resistance,
       exercises: exs,
-      split: item.split,
+      //split: item.split,
       unworkable: item.unworkable,
     };
     var js = JSON.stringify(obj);
@@ -629,13 +629,13 @@ class Split_table extends React.Component {
   }
 
   async onchangeMuscleGroup(e){
-    const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    thingy.muscleGroup = e.target.value;
-    this.setState({
-      items,
-    });
-    await this.updateworkout(thingy);
+    // const items = Array.from(this.state.items);
+    // var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    // thingy.muscleGroup = e.target.value;
+    // this.setState({
+    //   items,
+    // });
+    // await this.updateworkout(thingy);
   }
 
   async onchangefocusTypes(e, index){
@@ -653,35 +653,35 @@ class Split_table extends React.Component {
   }
 
   async onchangeSets(e){
-    const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    if(e.target.value){
-      var removezeros = parseInt(e.target.value, 10);
-      thingy.sets = 0;
-      for (let i = 0; i < removezeros; i++) {  //to remove zeros after. beautiful. Still doesn't work ;-;
-        thingy.sets += 1;
-      }
-    }else{
-      thingy.sets = 0;
-    }
-    this.setState({
-      items,
-    });
-    await this.updateworkout(thingy);
+    // const items = Array.from(this.state.items);
+    // var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    // if(e.target.value){
+    //   var removezeros = parseInt(e.target.value, 10);
+    //   thingy.sets = 0;
+    //   for (let i = 0; i < removezeros; i++) {  //to remove zeros after. beautiful. Still doesn't work ;-;
+    //     thingy.sets += 1;
+    //   }
+    // }else{
+    //   thingy.sets = 0;
+    // }
+    // this.setState({
+    //   items,
+    // });
+    // await this.updateworkout(thingy);
   }
 
   async onchangeRepititions(e){
-    const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    if(e.target.value){
-      thingy.repititions = parseInt(e.target.value, 10);
-    }else{
-      thingy.repititions = 0;
-    }
-    this.setState({
-      items,
-    });
-    await this.updateworkout(thingy);
+    // const items = Array.from(this.state.items);
+    // var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    // if(e.target.value){
+    //   thingy.repititions = parseInt(e.target.value, 10);
+    // }else{
+    //   thingy.repititions = 0;
+    // }
+    // this.setState({
+    //   items,
+    // });
+    // await this.updateworkout(thingy);
   }
 
   async onchangeDuration(e, index){
@@ -690,15 +690,15 @@ class Split_table extends React.Component {
     var times = 1;
     if(index == 0){
       if(e.target.value){
-        thingy.duration0 = parseInt(e.target.value, 10);
+        thingy.startTime0 = parseInt(e.target.value, 10);
       }else{
-        thingy.duration0 = 0;
+        thingy.startTime0 = 0;
       }
     }else{
       if(e.target.value){
-        thingy.duration = parseInt(e.target.value, 10);
+        thingy.startTime = parseInt(e.target.value, 10);
       }else{
-        thingy.duration = 0;
+        thingy.startTime = 0;
       }
     }
     this.setState({
@@ -708,17 +708,17 @@ class Split_table extends React.Component {
   }
 
   async onchangeResistance(e){
-    const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    if(e.target.value){
-      thingy.resistance = parseInt(e.target.value, 10);
-    }else{
-      thingy.resistance = 0;
-    }
-    this.setState({
-      items,
-    });
-    await this.updateworkout(thingy);
+    // const items = Array.from(this.state.items);
+    // var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    // if(e.target.value){
+    //   thingy.resistance = parseInt(e.target.value, 10);
+    // }else{
+    //   thingy.resistance = 0;
+    // }
+    // this.setState({
+    //   items,
+    // });
+    // await this.updateworkout(thingy);
   }
 
   async onchangeUnworkable(e){
@@ -796,7 +796,7 @@ class Split_table extends React.Component {
                         provided.draggableProps.style
                       )}
                     >
-                      Workout Name:
+                      {/* Workout Name:
                       <p style={{fontSize: 2 }}></p>
                       <input type="text" id={item.id} name={item.id} value={item.content} onChange={this.textexist} style={{width:100}}></input>
                       <button className="btn" name={item.id} onClick={this.dropdownV}>{item.V}</button>
@@ -805,7 +805,7 @@ class Split_table extends React.Component {
                         MuscleGroup:
                         <p style={{fontSize: 2 }}></p>
                         <input type="text" id={item.id} name={item.id} value={item.muscleGroup} onChange={this.onchangeMuscleGroup} style={{width:100}}></input>
-                        <p style={{fontSize: 2 }}></p>
+                        <p style={{fontSize: 2 }}></p> */}
                         {/* FocusTypes:
                         <p style={{fontSize: 2 }}></p>
                         <input type="checkbox" id="FocusTypes1" name={item.id} value="FocusTypes1c" checked={item.focusTypes[1]} onChange={ (e) => {this.onchangefocusTypes(e,1)}}></input>Strength
@@ -816,7 +816,7 @@ class Split_table extends React.Component {
                         <p style={{fontSize: 2 }}></p>
                         <input type="checkbox" id="FocusTypes4" name={item.id} value="FocusTypes4c" checked={item.focusTypes[4]} onChange={ (e) => {this.onchangefocusTypes(e,4)}}></input>Cardio
                         <p style={{fontSize: 2 }}></p> */}
-                        Sets:
+                        {/* Sets:
                         <p style={{fontSize: 2 }}></p>
                         <input type="number" id="sets" name={item.id} min="1" max="999999" value={item.sets} onChange={this.onchangeSets} style={{width:100}}></input>
                         <p style={{fontSize: 2 }}></p>
@@ -828,11 +828,11 @@ class Split_table extends React.Component {
                         <p style={{fontSize: 2 }}></p>
                         <input type="number" id="resistance" name={item.id} min="0" max="59" value={item.resistance} onChange={this.onchangeResistance} style={{width:100}}></input>
                         <p style={{fontSize: 2 }}></p>
-                      </div>
-                      Duration:
+                      </div> */}
+                      Start Time:
                       <p style={{fontSize: 2 }}></p>
-                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.duration0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>h
-                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.duration} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>min
+                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.startTime0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>hr
+                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.startTime} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>min
                       <p style={{fontSize: 2 }}></p>
                       Unworkable: 
                       <input type="checkbox" id="unworkable" name={item.id} value="idk" checked={item.unworkable} onChange={this.onchangeUnworkable}></input>
@@ -847,7 +847,7 @@ class Split_table extends React.Component {
                               <div>
                                 <button className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}>^</button>
                                 <button className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}>v</button>
-                                <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
+                                <a href={"/Edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
                       </div>
