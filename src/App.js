@@ -22,6 +22,7 @@ import Edit_Split from './pages/Edit_Split';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +49,8 @@ function App() {
             <Route path="/signup"> <SignUp /> </Route>
             <Route path="/dashboard"><Redirect to="/signin"/></Route>
             <Route path="/edit"><Redirect to="/signin"/></Route>
+            <Route path="/aboutus"> <AboutUs /> </Route>
+
             
             {/* </ThemeProvider>          */}
           </Switch>
@@ -59,6 +62,7 @@ function App() {
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
         <Route path='/'> <Redirect to="/dashboard"/></Route>
+        <Route path="/aboutus"> <AboutUs /> </Route>
         </>
       )}
     </Router>

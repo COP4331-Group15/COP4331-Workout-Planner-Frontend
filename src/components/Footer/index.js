@@ -1,6 +1,7 @@
 import React from 'react'
 import {animateScroll as scroll} from 'react-scroll'
 import {FaFacebook, FaInstagram,FaYoutube,FaTwitter,FaLinkedin} from 'react-icons/fa';
+import AboutUs from '../../pages/AboutUs'
 import { 
     FooterContainer,
     FooterWrap,
@@ -43,12 +44,12 @@ const Footer = () => {
                         <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle>Meet the Team</FooterLinkTitle>
-                                <FooterLink to="/signin">Thomas Stoeckert</FooterLink>
-                                <FooterLink to="/signin">Timothy Golio</FooterLink>
-                                <FooterLink to="/signin">Nicholas Habryl</FooterLink>
-                                <FooterLink to="/signin">Ricky Egawa</FooterLink>
-                                <FooterLink to="/signin">Isaiah Kovacich</FooterLink>
-                                <FooterLink to="/signin">Ryan Kendrick</FooterLink> 
+                                <FooterLink to="/AboutUs">Thomas Stoeckert</FooterLink>
+                                <FooterLink to="/AboutUs">Timothy Golio</FooterLink>
+                                <FooterLink to="/AboutUs">Nicholas Habryl</FooterLink>
+                                <FooterLink to="/AboutUs">Ricky Egawa</FooterLink>
+                                <FooterLink to="/AboutUs">Isaiah Kovacich</FooterLink>
+                                <FooterLink to="/AboutUs">Ryan Kendrick</FooterLink> 
                             </FooterLinkItems>
                         </FooterLinksWrapper>
                     </FooterLinksContainer>
