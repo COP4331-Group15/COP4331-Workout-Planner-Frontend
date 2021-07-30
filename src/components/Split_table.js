@@ -3,18 +3,12 @@ import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
-import firebase from 'firebase'
-// import firebase from "../services/";
+import firebase from "../services/fire";
 import createToken from "../services/communication";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-//import Navbar from '../components/Navbar'
-//import Sidebar from '../components/Sidebar'
-//import {NavBarSplit} from '../components/Navbar/data'
-//import { SidebarSplit } from '../components/Sidebar/data';
 
 //import Split_day from "../components/Split_day.js";
 
@@ -126,34 +120,70 @@ class Split_table extends React.Component {
     this.onchangeResistance = this.onchangeResistance.bind(this);
     this.onchangeUnworkable = this.onchangeUnworkable.bind(this);
     this.dropdownV = this.dropdownV.bind(this);
+    this.dec_ex = this.dec_ex.bind(this);
+    this.inc_ex = this.inc_ex.bind(this);
+    this.deleteAlertButtonex = this.deleteAlertButtonex.bind(this);
+    this.up_ex = this.up_ex.bind(this);
+    this.down_ex = this.down_ex.bind(this);
     this.asyncalicious();
   }
 
+  async up_ex(e, index){
+    const items = Array.from(this.state.items);
+    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    //var itemvar = thingy.exercises.pop();
+    if(index > 0){
+      var b = thingy.exercises[index];
+      thingy.exercises[index] = thingy.exercises[index-1];
+      thingy.exercises[index-1] = b;
+      this.setState({
+        items: items,
+      });
+      await this.updateworkout(thingy);
+    }
+  }
+  async down_ex(e, index){
+    const items = Array.from(this.state.items);
+    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    //var itemvar = thingy.exercises.pop();
+    if(index < thingy.exercises.length - 1){
+      var b = thingy.exercises[index];
+      thingy.exercises[index] = thingy.exercises[index+1];
+      thingy.exercises[index+1] = b;
+      this.setState({
+        items: items,
+      });
+      await this.updateworkout(thingy);
+    }
+  }
+  
   async onDragEnd(result) {
     if (!result.destination) {
       return;
     }
+    if (result.type === "type_day") {
+      const items = reorder(
+        this.state.items,
+        result.source.index,
+        result.destination.index
+      );
 
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
+      this.setState({
+        items,
+      });
+      await this.updatedays();
+    }else if (result.type === "type_ex"){
 
-    this.setState({
-      items,
-    });
-    await this.updatedays();
+    }
   }
 
   componentDidMount(){
-      this.asyncalicious();
+    this.asyncalicious();
   }
 
   asyncalicious = async () => {
-    try{
     var token = await firebase.auth().currentUser.getIdToken();
-    const items1 = axios({
+    axios({
       method: 'get',
       url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth().currentUser.uid}`,
       headers: {
@@ -163,6 +193,7 @@ class Split_table extends React.Component {
     }).then( async (res) => {
       if(res == null){
         this.createnewsplit();
+        this.asyncalicious();
         return;
       }
       console.log(res);
@@ -177,7 +208,7 @@ class Split_table extends React.Component {
           //{muscleGroup, focusTypes, name, sets, repititions, duration, resistance, exercises,split,unworkable}
           var namey = "~empty name";
           var muscleGroup;
-          var focusTypes;
+          //var focusTypes;
           var sets;
           var repititions;
           var duration;
@@ -198,7 +229,7 @@ class Split_table extends React.Component {
             console.log(res);
             namey = res.data.Name;
             muscleGroup = res.data.MuscleGroup;
-            focusTypes = res.data.FocusTypes;
+            //focusTypes = res.data.FocusTypes;
             sets = res.data.Sets;
             repititions = res.data.Repititions;
             duration = res.data.Duration;
@@ -211,17 +242,61 @@ class Split_table extends React.Component {
             }
             
           });
-          console.log("IUWHGRFWOIEURHGWOIERUGJHWEOIRLGUHWIER");
+
+          exercises = await Promise.all(Array.from({ length: exercises.length }, (v, k) => k).map( async (k) => {
+            var namey = "~empty name";
+            var muscleGroup;
+            //var focusTypes;
+            var sets;
+            var repititions;
+            var duration;
+            var resistance;
+            await axios({
+              method: 'get',
+              url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth().currentUser.uid}/${exercises[k]}`,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+              }
+            }).then((res) => {
+              if(res != null && res.data != null){
+                namey = res.data.Name;
+                muscleGroup = res.data.MuscleGroup;
+                //focusTypes = res.data.FocusTypes;
+                sets = res.data.Sets;
+                repititions = res.data.Repititions;
+                duration = res.data.Duration;
+                resistance = res.data.Resistance;
+              }else{
+                console.log("very bad thing happened");
+              }
+            });
+            return{
+              id: Math.random().toString(20),
+              content: namey,
+              iddd: exercises[k],
+              muscleGroup: muscleGroup,
+              //focusTypes: focusTypes,
+              sets: sets,
+              repititions: repititions,
+              duration: duration,
+              resistance: resistance,
+            }
+          }));
+          
+          console.log("thisoneee");
+          console.log(exercises);
           return{
             id: Math.random().toString(20),
             content: namey,
             number: k,
             iddd: res.data.Workouts[k],
             muscleGroup: muscleGroup,
-            focusTypes: focusTypes,
+            //focusTypes: focusTypes,
             sets: sets,
             repititions: repititions,
-            duration: duration,
+            duration: duration % 60,
+            duration0: Math.floor(duration / 60),
             resistance: resistance,
             exercises: exercises,
             split: split,
@@ -238,12 +313,10 @@ class Split_table extends React.Component {
       this.setState({
         items: items1,
         startDate: date,
-        focus: res.data.Focus,
+        //focus: res.data.Focus,
       });
     });
-  } catch(err){
-    console.error('error.stack');
-  }}
+  }
 
   dec_days = async () => {
     const items = Array.from(this.state.items);
@@ -296,7 +369,7 @@ class Split_table extends React.Component {
       const date = new Date();
       var obj = {
         muscleGroup: "Default",
-        focusTypes: [1, 0, 0, 0, 0],
+        //focusTypes: [1, 0, 0, 0, 0],
         name: "New Workout",
         sets: 0,
         repititions: 0,
@@ -322,7 +395,7 @@ class Split_table extends React.Component {
           content: `New Workout`,
           iddd: res.data.data.name,
           muscleGroup: "Default",
-          focusTypes: [1, 0, 0, 0, 0],
+          //focusTypes: [1, 0, 0, 0, 0],
           name: "New Workout",
           sets: 0,
           repititions: 0,
@@ -330,7 +403,9 @@ class Split_table extends React.Component {
           resistance: 0,
           exercises: [],
           split: 0,
-          unworkable: 0
+          unworkable: 0,
+          Vshow: "none",
+          V: "V"
         });
         this.setState({
           items,
@@ -342,11 +417,103 @@ class Split_table extends React.Component {
     }
   }
 
+  dec_ex = async (e) => {
+    const items = Array.from(this.state.items);
+    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    if(thingy.exercises.length > 0){
+      var token = await firebase.auth().currentUser.getIdToken();
+      var itemvar = thingy.exercises.pop();
+      axios({
+        method: 'delete',
+        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth().currentUser.uid}/${itemvar.iddd}/delete`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }).then(async (res) => {
+        this.setState({
+          items: items,
+        });
+        await this.updateworkout(thingy);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+
+  deleteAlertButtonex(e){
+    confirmAlert({
+      title: 'Delete',
+      message: 'Are you sure you want to delete the last exercise on the list for this workout?',
+      buttons: [
+        {
+          label: 'Cancel',
+          onClick: () => {}
+        },
+        {
+          label: 'Delete',
+          onClick: () => this.dec_ex(e)
+        }
+      ]
+    });
+  }
+
+  inc_ex = async (e) => {
+    const items = Array.from(this.state.items);
+    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    console.log("inc_ex");
+    console.log(thingy.exercises);
+    if(thingy.exercises.length < 9){
+      var token = await firebase.auth().currentUser.getIdToken();
+      var obj = {
+        muscleGroup: "Default",
+        //focusTypes: [1, 0, 0, 0, 0],
+        name: "New Exercise",
+        sets: 0,
+        repititions: 0,
+        duration: 0,
+        resistance: 0
+      };
+      var js = JSON.stringify(obj);
+      axios({
+        method: 'post',
+        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth().currentUser.uid}/create`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        data: js
+      }).then(async (res) => {
+        console.log(res);
+        thingy.exercises.push({
+          id: Math.random().toString(20),
+          content: `New Exercise`,
+          iddd: res.data.data.name,
+          muscleGroup: "Default",
+          //focusTypes: [1, 0, 0, 0, 0],
+          sets: 0,
+          repititions: 0,
+          duration: 0,
+          resistance: 0
+        });
+        this.setState({
+          items: items,
+        });
+        console.log("inc_ex 2----");
+        console.log(thingy.exercises);
+        console.log(items);
+        await this.updateworkout(thingy);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+
   createnewsplit = async () => {
     var token = await firebase.auth().currentUser.getIdToken();
     const date = new Date();
     var obj = {
-      focus: "Focus",
+      //focus: "Focus",
       startDate: date.getDate(),
       length: 0,
       workouts: [],
@@ -377,7 +544,7 @@ class Split_table extends React.Component {
     ));
     console.log(items1m);
     var obj = {
-      focus: this.state.focus,
+      //focus: this.state.focus,
       startDate: this.state.startDate.getDate(),
       length: items1m.length,
       workouts: items1m,
@@ -402,15 +569,22 @@ class Split_table extends React.Component {
 
   updateworkout = async (item) => {
     var token = await firebase.auth().currentUser.getIdToken();
+    var exs = Array.from({ length: item.exercises.length }, (v, k) => k).map( (k) => {
+      return(
+        item.exercises[k].iddd
+      )
+    });
+    console.log("exs");
+    console.log(exs);
     var obj = {
       name: item.content,
       muscleGroup: item.muscleGroup,
-      focusTypes: item.focusTypes,
+      //focusTypes: item.focusTypes,
       sets: item.sets,
       repititions: item.repititions,
-      duration: item.duration,
+      duration: item.duration + item.duration0*60,
       resistance: item.resistance,
-      exercises: item.exercises,
+      exercises: exs,
       split: item.split,
       unworkable: item.unworkable,
     };
@@ -441,9 +615,9 @@ class Split_table extends React.Component {
   }
 
   async verytextexist(e){
-    this.setState({
-      focus: e.target.value,
-    });
+    //this.setState({
+      //focus: e.target.value,
+    //});
     await this.updatedays();
   }
 
@@ -465,17 +639,17 @@ class Split_table extends React.Component {
   }
 
   async onchangefocusTypes(e, index){
-    const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    if(thingy.focusTypes[index]){
-      thingy.focusTypes[index] = 0;
-    }else{
-      thingy.focusTypes[index] = 1;
-    }
-    this.setState({
-      items,
-    });
-    await this.updateworkout(thingy);
+    // const items = Array.from(this.state.items);
+    // var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    // if(thingy.focusTypes[index]){
+    //   thingy.focusTypes[index] = 0;
+    // }else{
+    //   thingy.focusTypes[index] = 1;
+    // }
+    // this.setState({
+    //   items,
+    // });
+    // await this.updateworkout(thingy);
   }
 
   async onchangeSets(e){
@@ -513,10 +687,19 @@ class Split_table extends React.Component {
   async onchangeDuration(e, index){
     const items = Array.from(this.state.items);
     var thingy = items.find((obj) => {return obj.id == e.target.name;});
-    if(e.target.value){
-      thingy.duration[index] = parseInt(e.target.value, 10);
+    var times = 1;
+    if(index == 0){
+      if(e.target.value){
+        thingy.duration0 = parseInt(e.target.value, 10);
+      }else{
+        thingy.duration0 = 0;
+      }
     }else{
-      thingy.duration[index] = 0;
+      if(e.target.value){
+        thingy.duration = parseInt(e.target.value, 10);
+      }else{
+        thingy.duration = 0;
+      }
     }
     this.setState({
       items,
@@ -571,8 +754,8 @@ class Split_table extends React.Component {
   render() {
     return (
       <div>
-		{/*<Sidebar isOpen={isOpen} toggle={toggle} {...SidebarSplit}/>*/}
-        {/*<Navbar toggle={false} {...NavBarSplit}/>*/}
+        {/* <Sidebar isOpen={isOpen} toggle={toggle} {...SidebarCalendar}/>
+        <Navbar toggle={toggle} {...NavBarCalendar}/> */}
         <div className ="title_part">
           <div className="header_split">
             Edit Split: {this.state.props.split_id}
@@ -580,20 +763,20 @@ class Split_table extends React.Component {
           <button className="btn" onClick={this.deleteAlertButton}>&nbsp;-&nbsp;</button>
           <button className="btn" onClick={this.inc_days}>&nbsp;+&nbsp;</button>&nbsp;
           {/* <button className="btn" onClick={this.updatedays}>Update</button>&nbsp;&nbsp;&nbsp; */}
-          <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
+          {/* <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
             <option value="0">Default Focus</option>
             <option value="1">Strength</option>
             <option value="2">Muscle Growth</option>
             <option value="3">Weight Loss</option>
             <option value="4">Cardio</option>
-          </select>&nbsp;
+          </select>&nbsp; */}
           <DatePicker selected={this.state.startDate} onChange={this.datepickfunc} />
         </div>
         <div className ="daysback">
             {this.state.items.map((item, index) => (<div className ="days">Day {index+1}</div>))}
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable" direction="horizontal">
+          <Droppable droppableId="droppable" direction="horizontal" type = "type_day">
           {(provided, snapshot) => (
             <div>
               <div
@@ -623,7 +806,7 @@ class Split_table extends React.Component {
                         <p style={{fontSize: 2 }}></p>
                         <input type="text" id={item.id} name={item.id} value={item.muscleGroup} onChange={this.onchangeMuscleGroup} style={{width:100}}></input>
                         <p style={{fontSize: 2 }}></p>
-                        FocusTypes:
+                        {/* FocusTypes:
                         <p style={{fontSize: 2 }}></p>
                         <input type="checkbox" id="FocusTypes1" name={item.id} value="FocusTypes1c" checked={item.focusTypes[1]} onChange={ (e) => {this.onchangefocusTypes(e,1)}}></input>Strength
                         <p style={{fontSize: 2 }}></p>
@@ -632,7 +815,7 @@ class Split_table extends React.Component {
                         <input type="checkbox" id="FocusTypes3" name={item.id} value="FocusTypes3c" checked={item.focusTypes[3]} onChange={ (e) => {this.onchangefocusTypes(e,3)}}></input>Weight Loss
                         <p style={{fontSize: 2 }}></p>
                         <input type="checkbox" id="FocusTypes4" name={item.id} value="FocusTypes4c" checked={item.focusTypes[4]} onChange={ (e) => {this.onchangefocusTypes(e,4)}}></input>Cardio
-                        <p style={{fontSize: 2 }}></p>
+                        <p style={{fontSize: 2 }}></p> */}
                         Sets:
                         <p style={{fontSize: 2 }}></p>
                         <input type="number" id="sets" name={item.id} min="1" max="999999" value={item.sets} onChange={this.onchangeSets} style={{width:100}}></input>
@@ -648,15 +831,26 @@ class Split_table extends React.Component {
                       </div>
                       Duration:
                       <p style={{fontSize: 2 }}></p>
-                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.duration[0]} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>h
-                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.duration[1]} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>min
+                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.duration0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>h
+                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.duration} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>min
                       <p style={{fontSize: 2 }}></p>
                       Unworkable: 
                       <input type="checkbox" id="unworkable" name={item.id} value="idk" checked={item.unworkable} onChange={this.onchangeUnworkable}></input>
                       <p style={{fontSize: 2 }}></p>
                       Exercises:
                       <p style={{fontSize: 2 }}></p>
-                      <a href={"/Edit_day?day_id=" + item.number} className="button">Edit day</a>
+                      <button className="btn" name={item.id} onClick={this.deleteAlertButtonex}>&nbsp;-&nbsp;</button>
+                      <button className="btn" name={item.id} onClick={this.inc_ex}>&nbsp;+&nbsp;</button>&nbsp;
+                      <p style={{fontSize: 2 }}></p>
+                      <div>
+                        {item.exercises.map((item_e, index) => (
+                              <div>
+                                <button className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}>^</button>
+                                <button className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}>v</button>
+                                <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
+                              </div>      
+                        ))}
+                      </div>
                     </div>
                   )}
                   </Draggable>
@@ -667,6 +861,8 @@ class Split_table extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
+        
+
       </div>
     );
   }

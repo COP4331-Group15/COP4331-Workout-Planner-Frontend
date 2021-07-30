@@ -19,6 +19,7 @@ import Home from './pages/Home';
 // import Login from './pages/Login';
 //import TestPage from './pages/TestPage';
 import Edit_Split from './pages/Edit_Split';
+import Edit_Exercise from './pages/Edit_Exercise.jsx';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard';
@@ -61,6 +62,7 @@ function App() {
         <Route path="/signup"><Redirect to="/dashboard"/></Route>
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
+        <Route path="/edit_Exercise"><Edit_Exercise /></Route>
         <Route path='/'> <Redirect to="/dashboard"/></Route>
         <Route path="/aboutus"> <AboutUs /> </Route>
         </>
