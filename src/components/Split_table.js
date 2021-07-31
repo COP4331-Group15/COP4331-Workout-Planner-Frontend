@@ -755,7 +755,7 @@ class Split_Table extends React.Component {
   render() {
     return (
       <div>
-        {/* <Sidebar isOpen={isOpen} toggle={toggle} {...SidebarCalendar}/>
+        {/*<Sidebar isOpen={isOpen} toggle={toggle} {...SidebarCalendar}/>
         <Navbar toggle={toggle} {...NavBarCalendar}/> */}
         <div className ="title_part">
           <div className="header_split">
