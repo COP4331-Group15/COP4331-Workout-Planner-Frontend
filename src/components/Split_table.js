@@ -769,6 +769,7 @@ class Split_Table extends React.Component {
           <div className="btnbox">
           <IconButton size='small' className="btn" onClick={this.deleteAlertButton}><RemoveIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.inc_days}><AddIcon/></IconButton>&nbsp;
+          <DatePicker selected={this.state.startDate} onChange={this.datepickfunc} />
           </div>
           {/* <IconButton size='small' className="btn" onClick={this.updatedays}>Update</IconButton>&nbsp;&nbsp;&nbsp; */}
           {/* <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
@@ -778,7 +779,6 @@ class Split_Table extends React.Component {
             <option value="3">Weight Loss</option>
             <option value="4">Cardio</option>
           </select>&nbsp; */}
-          <DatePicker selected={this.state.startDate} onChange={this.datepickfunc} />
         </div>
         <div className ="daysback">
             {this.state.items.map((item, index) => (<div className ="days">Day {index+1}</div>))}
@@ -854,11 +854,9 @@ class Split_Table extends React.Component {
                       <p style={{fontSize: 2 }}></p>
                       <div>
                         {item.exercises.map((item_e, index) => (
-                              <div>
-                                <div className="btnbox">
+                              <div className="btnbox">
                                 <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}><ArrowUpwardIcon/></IconButton>
                                 <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}><ArrowDownwardIcon/></IconButton>
-                                </div>
                                 <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
