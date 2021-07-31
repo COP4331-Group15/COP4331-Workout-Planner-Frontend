@@ -28,7 +28,7 @@ function Copyright() {
     </Typography>
   );
 }
-
+/*Styles*/
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -134,7 +134,7 @@ export default function Album() {
                     Timothy Golio
                     </Typography>
                     <Typography>
-                      Back-end developer. Created the initial draft for this application and made many endpoints.
+                      Back-end and mobile developer. Created the initial draft for this application and worked on our endpoints and most of the mobile user interface.
                     </Typography>
                   </CardContent>
                 </Card>
@@ -154,7 +154,7 @@ export default function Album() {
                     Nicholas Habryl
                     </Typography>
                     <Typography>
-                      Back end and mobile developer. Created endpoints and most of the mobile user interface.
+                      Database end and back-end developer. Created our endpoints and was the leader of the database development.
                     </Typography>
                   </CardContent>
                 </Card>
@@ -214,7 +214,7 @@ export default function Album() {
                     Ryan Kendrick
                     </Typography>
                     <Typography>
-                      Front end developer, graphics designer. Made contributions to the front end pages and created the workout icons.
+                      Front end developer, graphics designer. Made contributions to the front-end pages and created the workout icons.
                     </Typography>
                   </CardContent>
                 </Card>

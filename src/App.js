@@ -24,6 +24,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard';
 import AboutUs from './pages/AboutUs';
+import HowItWorks from './pages/HowItWorks';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,7 @@ function App() {
             <Route path="/dashboard"><Redirect to="/signin"/></Route>
             <Route path="/edit"><Redirect to="/signin"/></Route>
             <Route path="/aboutus"> <AboutUs /> </Route>
+            <Route path="/howitworks"> <HowItWorks /> </Route>
 
             
             {/* </ThemeProvider>          */}
