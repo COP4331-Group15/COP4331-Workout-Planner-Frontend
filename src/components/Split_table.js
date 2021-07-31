@@ -763,6 +763,7 @@ class Split_Table extends React.Component {
           </div>
           <button className="btn" onClick={this.deleteAlertButton}>&nbsp;-&nbsp;</button>
           <button className="btn" onClick={this.inc_days}>&nbsp;+&nbsp;</button>&nbsp;
+          <a href="/" className="button">Dashboard</a>
           {/* <button className="btn" onClick={this.updatedays}>Update</button>&nbsp;&nbsp;&nbsp; */}
           {/* <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
             <option value="0">Default Focus</option>
