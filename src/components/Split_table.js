@@ -447,7 +447,7 @@ class Split_Table extends React.Component {
     }
   }
 
-  deleteAlertButtonex(e){
+  deleteAlertButtonex(e, iddd){
     confirmAlert({
       title: 'Delete',
       message: 'Are you sure you want to delete the last exercise on the list for this workout?',
@@ -458,7 +458,7 @@ class Split_Table extends React.Component {
         },
         {
           label: 'Delete',
-          onClick: () => this.dec_ex(e)
+          onClick: () => this.dec_ex(e, iddd)
         }
       ]
     });
