@@ -869,4 +869,4 @@ class Split_table extends React.Component {
 }
 
 
-export default Split_table;
+export default Split_Table;
