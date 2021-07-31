@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
-import firebase from "../services/Firebase.js";
+import Firebase from "../services/Firebase.js";
 import createToken from "../services/communication";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -38,10 +38,10 @@ import "react-datepicker/dist/react-datepicker.css";
 // }
 
 // const getItems = async (count) => {
-//   var token = firebase.auth.currentUser.getIdToken();
+//   var token = Firebase.auth.currentUser.getIdToken();
 //   axios({
 //     method: 'get',
-//     url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}`,
+//     url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}`,
 //     headers: {
 //       'Content-Type': 'application/json',
 //       Authorization: `Bearer ${token}`
@@ -129,7 +129,7 @@ class Exercise extends React.Component {
   }
 
   asyncalicious = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     var namey = "~empty name";
     var muscleGroup;
     //var focusTypes;
@@ -140,7 +140,7 @@ class Exercise extends React.Component {
     console.log(this.state.props.exercise_id);
     await axios({
         method: 'get',
-        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth.currentUser.uid}/${this.state.props.exercise_id}`,
+        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${Firebase.auth.currentUser.uid}/${this.state.props.exercise_id}`,
         headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
@@ -188,7 +188,7 @@ class Exercise extends React.Component {
 
 
   createnewsplit = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     const date = new Date();
     var obj = {
       //focus: "Focus",
@@ -201,7 +201,7 @@ class Exercise extends React.Component {
     var js = JSON.stringify(obj);
     axios({
       method: 'post',
-      url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}/create`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}/create`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
@@ -216,7 +216,7 @@ class Exercise extends React.Component {
 
 
   updateex = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     var obj = {
       name: this.state.content,
       muscleGroup: this.state.muscleGroup,
@@ -229,7 +229,7 @@ class Exercise extends React.Component {
     var js = JSON.stringify(obj);
     axios({
       method: 'patch',
-      url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth.currentUser.uid}/${this.state.props.exercise_id}/update`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${Firebase.auth.currentUser.uid}/${this.state.props.exercise_id}/update`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`

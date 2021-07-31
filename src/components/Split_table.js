@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
-import firebase from "../services/Firebase.js";
+import Firebase from "../services/Firebase.js";
 import createToken from "../services/communication";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -38,10 +38,10 @@ import "react-datepicker/dist/react-datepicker.css";
 // }
 
 // const getItems = async (count) => {
-//   var token = firebase.auth.currentUser.getIdToken();
+//   var token = Firebase.auth.currentUser.getIdToken();
 //   axios({
 //     method: 'get',
-//     url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}`,
+//     url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}`,
 //     headers: {
 //       'Content-Type': 'application/json',
 //       Authorization: `Bearer ${token}`
@@ -182,10 +182,10 @@ class Split_Table extends React.Component {
   }
 
   asyncalicious = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     axios({
       method: 'get',
-      url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
@@ -218,7 +218,7 @@ class Split_Table extends React.Component {
           var unworkable;
           await axios({
             method: 'get',
-            url: `https://workout-sprinter-api.herokuapp.com/api/workout/${firebase.auth.currentUser.uid}/${res.data.Workouts[k]}`,
+            url: `https://workout-sprinter-api.herokuapp.com/api/workout/${Firebase.auth.currentUser.uid}/${res.data.Workouts[k]}`,
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
@@ -253,7 +253,7 @@ class Split_Table extends React.Component {
             var resistance;
             await axios({
               method: 'get',
-              url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth.currentUser.uid}/${exercises[k]}`,
+              url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${Firebase.auth.currentUser.uid}/${exercises[k]}`,
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
@@ -321,11 +321,11 @@ class Split_Table extends React.Component {
   dec_days = async () => {
     const items = Array.from(this.state.items);
     if(items.length > 0){
-      var token = await firebase.auth.currentUser.getIdToken();
+      var token = await Firebase.auth.currentUser.getIdToken();
       var itemvar = items.pop();
       axios({
         method: 'delete',
-        url: `https://workout-sprinter-api.herokuapp.com/api/workout/${firebase.auth.currentUser.uid}/${itemvar.iddd}/delete`,
+        url: `https://workout-sprinter-api.herokuapp.com/api/workout/${Firebase.auth.currentUser.uid}/${itemvar.iddd}/delete`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -365,7 +365,7 @@ class Split_Table extends React.Component {
   inc_days = async () => {
     const items = Array.from(this.state.items);
     if(items.length < 9){
-      var token = await firebase.auth.currentUser.getIdToken();
+      var token = await Firebase.auth.currentUser.getIdToken();
       const date = new Date();
       var obj = {
         //muscleGroup: "Default",
@@ -382,7 +382,7 @@ class Split_Table extends React.Component {
       var js = JSON.stringify(obj);
       axios({
         method: 'post',
-        url: `https://workout-sprinter-api.herokuapp.com/api/workout/${firebase.auth.currentUser.uid}/create`,
+        url: `https://workout-sprinter-api.herokuapp.com/api/workout/${Firebase.auth.currentUser.uid}/create`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -421,11 +421,11 @@ class Split_Table extends React.Component {
     const items = Array.from(this.state.items);
     var thingy = items.find((obj) => {return obj.id == e.target.name;});
     if(thingy.exercises.length > 0){
-      var token = await firebase.auth.currentUser.getIdToken();
+      var token = await Firebase.auth.currentUser.getIdToken();
       var itemvar = thingy.exercises.pop();
       axios({
         method: 'delete',
-        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth.currentUser.uid}/${itemvar.iddd}/delete`,
+        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${Firebase.auth.currentUser.uid}/${itemvar.iddd}/delete`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -464,7 +464,7 @@ class Split_Table extends React.Component {
     console.log("inc_ex");
     console.log(thingy.exercises);
     if(thingy.exercises.length < 9){
-      var token = await firebase.auth.currentUser.getIdToken();
+      var token = await Firebase.auth.currentUser.getIdToken();
       var obj = {
         muscleGroup: "Default",
         //focusTypes: [1, 0, 0, 0, 0],
@@ -477,7 +477,7 @@ class Split_Table extends React.Component {
       var js = JSON.stringify(obj);
       axios({
         method: 'post',
-        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${firebase.auth.currentUser.uid}/create`,
+        url: `https://workout-sprinter-api.herokuapp.com/api/exercise/${Firebase.auth.currentUser.uid}/create`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -510,7 +510,7 @@ class Split_Table extends React.Component {
   }
 
   createnewsplit = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     const date = new Date();
     var obj = {
       //focus: "Focus",
@@ -523,7 +523,7 @@ class Split_Table extends React.Component {
     var js = JSON.stringify(obj);
     axios({
       method: 'post',
-      url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}/create`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}/create`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
@@ -537,7 +537,7 @@ class Split_Table extends React.Component {
   }
 
   updatedays = async () => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     const items = Array.from(this.state.items);
     const items1m = Array.from({ length: items.length }, (v, k) => k).map(k => (
       items[k].iddd
@@ -554,7 +554,7 @@ class Split_Table extends React.Component {
     var js = JSON.stringify(obj);
     axios({
       method: 'patch',
-      url: `https://workout-sprinter-api.herokuapp.com/api/split/${firebase.auth.currentUser.uid}/update`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/split/${Firebase.auth.currentUser.uid}/update`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
@@ -568,7 +568,7 @@ class Split_Table extends React.Component {
   }
 
   updateworkout = async (item) => {
-    var token = await firebase.auth.currentUser.getIdToken();
+    var token = await Firebase.auth.currentUser.getIdToken();
     var exs = Array.from({ length: item.exercises.length }, (v, k) => k).map( (k) => {
       return(
         item.exercises[k].iddd
@@ -591,7 +591,7 @@ class Split_Table extends React.Component {
     var js = JSON.stringify(obj);
     axios({
       method: 'patch',
-      url: `https://workout-sprinter-api.herokuapp.com/api/workout/${firebase.auth.currentUser.uid}/${item.iddd}/update`,
+      url: `https://workout-sprinter-api.herokuapp.com/api/workout/${Firebase.auth.currentUser.uid}/${item.iddd}/update`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
