@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
-import firebase from "../services/fire";
+import firebase from "../services/firebase";
 import createToken from "../services/communication";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
