@@ -10,6 +10,11 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import IconButton from '@material-ui/core/IconButton';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 //import Split_day from "../components/Split_day.js";
 
@@ -761,9 +766,9 @@ class Split_Table extends React.Component {
           <div className="header_split">
             Edit Split: {this.state.props.split_id}
           </div>
-          <button className="btn" onClick={this.deleteAlertButton}>&nbsp;-&nbsp;</button>
-          <button className="btn" onClick={this.inc_days}>&nbsp;+&nbsp;</button>&nbsp;
-          {/* <button className="btn" onClick={this.updatedays}>Update</button>&nbsp;&nbsp;&nbsp; */}
+          <IconButton size='small' className="btn" onClick={this.deleteAlertButton}><RemoveIcon/></IconButton>
+          <IconButton size='small' className="btn" onClick={this.inc_days}><AddIcon/></IconButton>&nbsp;
+          {/* <IconButton size='small' className="btn" onClick={this.updatedays}>Update</IconButton>&nbsp;&nbsp;&nbsp; */}
           {/* <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
             <option value="0">Default Focus</option>
             <option value="1">Strength</option>
@@ -800,7 +805,7 @@ class Split_Table extends React.Component {
                       {/* Workout Name:
                       <p style={{fontSize: 2 }}></p>
                       <input type="text" id={item.id} name={item.id} value={item.content} onChange={this.textexist} style={{width:100}}></input>
-                      <button className="btn" name={item.id} onClick={this.dropdownV}>{item.V}</button>
+                      <IconButton size='small' className="btn" name={item.id} onClick={this.dropdownV}>{item.V}</IconButton>
                       <p style={{fontSize: 2 }}></p>
                       <div style={{display: item.Vshow}}>
                         MuscleGroup:
@@ -840,14 +845,14 @@ class Split_Table extends React.Component {
                       <p style={{fontSize: 2 }}></p>
                       Exercises:
                       <p style={{fontSize: 2 }}></p>
-                      <button className="btn" name={item.id} onClick={this.deleteAlertButtonex}>&nbsp;-&nbsp;</button>
-                      <button className="btn" name={item.id} onClick={this.inc_ex}>&nbsp;+&nbsp;</button>&nbsp;
+                      <IconButton size='small' className="btn" name={item.id} onClick={this.deleteAlertButtonex}><RemoveIcon/></IconButton>
+                      <IconButton size='small' className="btn" name={item.id} onClick={this.inc_ex}><AddIcon/></IconButton>&nbsp;
                       <p style={{fontSize: 2 }}></p>
                       <div>
                         {item.exercises.map((item_e, index) => (
                               <div>
-                                <button className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}>^</button>
-                                <button className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}>v</button>
+                                <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}><ArrowUpwardIcon/></IconButton>
+                                <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}><ArrowDownwardIcon/></IconButton>
                                 <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
