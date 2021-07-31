@@ -423,9 +423,9 @@ class Split_Table extends React.Component {
     }
   }
 
-  dec_ex = async (e) => {
+  dec_ex = async (e, iddd) => {
     const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    var thingy = items.find((obj) => {return obj.id == iddd;});
     if(thingy.exercises.length > 0){
       var token = await firebase.auth().currentUser.getIdToken();
       var itemvar = thingy.exercises.pop();
@@ -464,9 +464,9 @@ class Split_Table extends React.Component {
     });
   }
 
-  inc_ex = async (e) => {
+  inc_ex = async (e, iddd) => {
     const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    var thingy = items.find((obj) => {return obj.id == iddd;});
     console.log("inc_ex");
     console.log(thingy.exercises);
     if(thingy.exercises.length < 9){
@@ -848,8 +848,8 @@ class Split_Table extends React.Component {
                       Exercises:
                       <p style={{fontSize: 2 }}></p>
                       <div className="btnbox">
-                      <IconButton size='small' className="btn" name={item.id} onClick={this.deleteAlertButtonex}><RemoveIcon/></IconButton>
-                      <IconButton size='small' className="btn" name={item.id} onClick={this.inc_ex}><AddIcon/></IconButton>&nbsp;
+                      <IconButton size='small' className="btn" onClick={(e) => {this.deleteAlertButtonex(e,item.id)}}><RemoveIcon/></IconButton>
+                      <IconButton size='small' className="btn" onClick={(e) => {this.inc_ex(e,item.id)}}><AddIcon/></IconButton>&nbsp;
                       </div>
                       <p style={{fontSize: 2 }}></p>
                       <div>
