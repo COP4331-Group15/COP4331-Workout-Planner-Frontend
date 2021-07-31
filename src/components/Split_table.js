@@ -766,8 +766,10 @@ class Split_Table extends React.Component {
           <div className="header_split">
             Edit Split: {this.state.props.split_id}
           </div>
+          <div className="btnbox">
           <IconButton size='small' className="btn" onClick={this.deleteAlertButton}><RemoveIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.inc_days}><AddIcon/></IconButton>&nbsp;
+          </div>
           {/* <IconButton size='small' className="btn" onClick={this.updatedays}>Update</IconButton>&nbsp;&nbsp;&nbsp; */}
           {/* <select name="focus1" id="focus1" value={this.state.focus} onChange={this.verytextexist}>
             <option value="0">Default Focus</option>
@@ -845,14 +847,18 @@ class Split_Table extends React.Component {
                       <p style={{fontSize: 2 }}></p>
                       Exercises:
                       <p style={{fontSize: 2 }}></p>
+                      <div className="btnbox">
                       <IconButton size='small' className="btn" name={item.id} onClick={this.deleteAlertButtonex}><RemoveIcon/></IconButton>
                       <IconButton size='small' className="btn" name={item.id} onClick={this.inc_ex}><AddIcon/></IconButton>&nbsp;
+                      </div>
                       <p style={{fontSize: 2 }}></p>
                       <div>
                         {item.exercises.map((item_e, index) => (
                               <div>
+                                <div className="btnbox">
                                 <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}><ArrowUpwardIcon/></IconButton>
                                 <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}><ArrowDownwardIcon/></IconButton>
+                                </div>
                                 <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
