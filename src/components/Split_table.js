@@ -848,7 +848,7 @@ class Split_Table extends React.Component {
                               <div>
                                 <button className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}>^</button>
                                 <button className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}>v</button>
-                                <a href={"/Edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
+                                <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
                       </div>
