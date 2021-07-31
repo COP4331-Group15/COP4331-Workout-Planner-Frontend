@@ -134,9 +134,9 @@ class Split_Table extends React.Component {
     this.asyncalicious();
   }
 
-  async up_ex(e, index){
+  async up_ex(e, index, iddd){
     const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    var thingy = items.find((obj) => {return obj.id == iddd;});
     //var itemvar = thingy.exercises.pop();
     if(index > 0){
       var b = thingy.exercises[index];
@@ -148,9 +148,9 @@ class Split_Table extends React.Component {
       await this.updateworkout(thingy);
     }
   }
-  async down_ex(e, index){
+  async down_ex(e, index, iddd){
     const items = Array.from(this.state.items);
-    var thingy = items.find((obj) => {return obj.id == e.target.name;});
+    var thingy = items.find((obj) => {return obj.id == iddd;});
     //var itemvar = thingy.exercises.pop();
     if(index < thingy.exercises.length - 1){
       var b = thingy.exercises[index];
@@ -855,8 +855,8 @@ class Split_Table extends React.Component {
                       <div>
                         {item.exercises.map((item_e, index) => (
                               <div className="btnbox">
-                                <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.up_ex(e,index)}}><ArrowUpwardIcon/></IconButton>
-                                <IconButton size='small' className="btn" name={item.id} onClick={(e) =>{this.down_ex(e,index)}}><ArrowDownwardIcon/></IconButton>
+                                <IconButton size='small' className="btn" onClick={(e) =>{this.up_ex(e,index,item.id)}}><ArrowUpwardIcon/></IconButton>
+                                <IconButton size='small' className="btn" onClick={(e) =>{this.down_ex(e,index,item.id)}}><ArrowDownwardIcon/></IconButton>
                                 <a href={"/edit_Exercise?exercise_id=" + item_e.iddd} className="button">{index+1}: {item_e.content}</a>
                               </div>      
                         ))}
