@@ -1,18 +1,20 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
+import React, {useState}  from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+import {NavBarHome} from '../components/Navbar/data'
+import Sidebar from '../components/Sidebar'
+import {SidebarHome} from '../components/Sidebar/data'
+
 
 function Copyright() {
   return (
@@ -51,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '96.25%', // 16:9
     paddingRight: '96.25%',
     paddingBottom: '.0015%',
-
   },
   cardContent: {
     flexGrow: 1,
@@ -67,17 +68,18 @@ const cards1 = [1];
 export default function Album() {
   const classes = useStyles();
 
+  const [isOpen, setIsOpen] = useState(false)
+
+    const toggle = () => {
+        setIsOpen(!isOpen)
+    }
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Sidebar isOpen={isOpen} toggle={toggle} {...SidebarHome}/>
+      <Navbar toggle={toggle} {...NavBarHome}/>
+
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -223,15 +225,7 @@ export default function Album() {
         </Container>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </footer>
+      <Footer></Footer>
       {/* End footer */}
     </React.Fragment>
   );
