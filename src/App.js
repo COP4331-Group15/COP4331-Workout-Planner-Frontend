@@ -63,7 +63,6 @@ function App() {
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
         <Route path="/edit_Exercise"><Edit_Exercise /></Route>
-        <Route path='/'> <Redirect to="/dashboard"/></Route>
         <Route path="/aboutus"> <AboutUs /> </Route>
         </>
       )}
