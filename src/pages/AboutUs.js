@@ -48,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '96.25%', // 16:9
+    paddingRight: '96.25%',
+    paddingBottom: '.0015%',
+
   },
   cardContent: {
     flexGrow: 1,
@@ -201,7 +204,7 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/Kbf2no7RH-I/3500x3500"
+                    image="https://source.unsplash.com/sZ07H1hRaxU/3500x3500"
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
