@@ -165,7 +165,7 @@ class Exercise extends React.Component {
         sets: sets,
         repititions: repititions,
         duration: duration % 60,
-        duration: Math.floor(duration / 60),
+        duration0: Math.floor(duration / 60),
         resistance: resistance,
     });
   }
