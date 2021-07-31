@@ -94,7 +94,7 @@ const getListStyle = isDraggingOver => ({
   overflow: 'hidden',
 });
 
-class Split_table extends React.Component {
+class Split_Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
