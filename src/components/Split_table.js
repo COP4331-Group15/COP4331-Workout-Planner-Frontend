@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
@@ -767,6 +768,10 @@ class Split_Table extends React.Component {
             Edit Split: {this.state.props.split_id}
           </div>
           <div className="btnbox">
+          <IconButton size='small' className="btn" onClick={(e) => {
+          e.preventDefault();
+          window.location.href='/dashboard';
+          }}><ArrowBackIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.deleteAlertButton}><RemoveIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.inc_days}><AddIcon/></IconButton>&nbsp;
           <DatePicker selected={this.state.startDate} onChange={this.datepickfunc} />

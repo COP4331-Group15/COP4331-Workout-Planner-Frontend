@@ -351,8 +351,11 @@ class Exercise extends React.Component {
                 <div className="header_split">
                     Edit Exercise
                 </div>
-                <div>
-                    <a href="/edit" className="button">Edit Split</a>
+                <div className="btnbox">
+                  <IconButton size='small' className="btn" onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href='/edit';
+                  }}><ArrowBackIcon/></IconButton>
                 </div>
             </div>
             <div style={getListStyle()}>
