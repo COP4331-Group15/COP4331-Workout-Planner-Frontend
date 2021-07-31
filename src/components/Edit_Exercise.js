@@ -385,8 +385,8 @@ class Exercise extends React.Component {
                     <p style={{fontSize: 2 }}></p>
                     Duration:
                     <p style={{fontSize: 2 }}></p>
-                    <input type="number" id="durationm" min="0" max="999999" value={this.state.duration0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>min
-                    <input type="number" id="durations" min="0" max="59" value={this.state.duration} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>sec
+                    <input type="number" id="durationm" min="0" max="999999" value={this.state.duration0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:40}}></input>min
+                    <input type="number" id="durations" min="0" max="59" value={this.state.duration} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:40}}></input>sec
                     <p style={{fontSize: 2 }}></p>
                 </div>
             </div>

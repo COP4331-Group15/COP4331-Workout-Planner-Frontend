@@ -832,8 +832,8 @@ class Split_Table extends React.Component {
                       </div> */}
                       Start Time:
                       <p style={{fontSize: 2 }}></p>
-                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.startTime0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:35}}></input>hr
-                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.startTime} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:35}}></input>min
+                      <input type="number" id="durationm" name={item.id} min="0" max="24" value={item.startTime0} onChange={(e) => {this.onchangeDuration(e, 0)}} style={{width:40}}></input>hr
+                      <input type="number" id="durations" name={item.id} min="0" max="59" value={item.startTime} onChange={(e) => {this.onchangeDuration(e, 1)}} style={{width:40}}></input>min
                       <p style={{fontSize: 2 }}></p>
                       Unworkable: 
                       <input type="checkbox" id="unworkable" name={item.id} value="idk" checked={item.unworkable} onChange={this.onchangeUnworkable}></input>

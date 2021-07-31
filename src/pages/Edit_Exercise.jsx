@@ -8,7 +8,7 @@ import Exercise from "../components/Edit_Exercise.js";
 import { DragDropContext } from "react-beautiful-dnd";
 //import background_img_edit_spilts from './risen-wang-20jX9b35r_M-unsplash.jpg';
 
-const Edit_Exercise = () => {
+const edit_Exercise = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -48,4 +48,4 @@ const Edit_Exercise = () => {
     )
 }
 
-export default Edit_Exercise
+export default edit_Exercise
