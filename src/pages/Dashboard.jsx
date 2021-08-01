@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AuthUserContext, withAuthentication } from '../components/Session';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 import {
   Switch,
@@ -37,8 +37,8 @@ function Dashboard(props) {
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
 
-  const signOut = () => {
-    props.firebase.auth.signOut()
+  const signOut = async () => {
+    await props.firebase.auth.signOut()
     props.history.push("/");
   }
 
@@ -94,7 +94,7 @@ function Dashboard(props) {
                 
             </div>
             ) : (
-            <p>Not authorized.</p>
+            <p>Hello!</p>
          )
       }
     </AuthUserContext.Consumer>
