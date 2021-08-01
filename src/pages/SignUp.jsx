@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from '../config/theme.signinup';
 import Copyright from '../components/Copyright';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import firebase from 'firebase';
 
 const theme = createTheme({
   palette: {

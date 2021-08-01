@@ -19,6 +19,7 @@ import Copyright from '../components/Copyright';
 
 import PasswordForget from '../components/PasswordForget';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import firebase from 'firebase';
 
 const theme = createTheme({
   palette: {
@@ -31,8 +32,6 @@ const theme = createTheme({
     }
   }
 })
-
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 function SignIn(props) {
   const classes = useStyles();
