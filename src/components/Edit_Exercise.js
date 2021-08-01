@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom";
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
@@ -352,10 +353,7 @@ class Exercise extends React.Component {
                     Edit Exercise
                 </div>
                 <div className="btnbox">
-                  <IconButton size='small' className="btn" onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href='/edit';
-                  }}><ArrowBackIcon/></IconButton>
+                  <IconButton component={Link} to="/edit" size='small' className="btn"><ArrowBackIcon/></IconButton>
                 </div>
             </div>
             <div style={getListStyle()}>

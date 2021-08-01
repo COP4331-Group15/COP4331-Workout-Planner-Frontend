@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import '../pages/styles.css'; 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios'
@@ -768,10 +769,7 @@ class Split_Table extends React.Component {
             Edit Split: {this.state.props.split_id}
           </div>
           <div className="btnbox">
-          <IconButton size='small' className="btn" onClick={(e) => {
-          e.preventDefault();
-          window.location.href='/dashboard';
-          }}><ArrowBackIcon/></IconButton>
+          <IconButton component={Link} to="/dashboard" size='small' className="btn"><ArrowBackIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.deleteAlertButton}><RemoveIcon/></IconButton>
           <IconButton size='small' className="btn" onClick={this.inc_days}><AddIcon/></IconButton>&nbsp;
           <DatePicker selected={this.state.startDate} onChange={this.datepickfunc} />

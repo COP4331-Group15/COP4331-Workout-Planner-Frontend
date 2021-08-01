@@ -60,6 +60,7 @@ function App() {
         </>
       ) : (
         <>
+        <Route path="/" exact><Redirect to="/dashboard" /></Route>
         <Route path="/signin"><Redirect to="/dashboard"/></Route>
         <Route path="/signup"><Redirect to="/dashboard"/></Route>
         <Route path="/dashboard"><Dashboard /></Route>
