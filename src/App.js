@@ -19,9 +19,12 @@ import Home from './pages/Home';
 // import Login from './pages/Login';
 //import TestPage from './pages/TestPage';
 import Edit_Split from './pages/Edit_Split';
+import Edit_Exercise from './pages/Edit_Exercise.jsx';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard';
+import AboutUs from './pages/AboutUs';
+import HowItWorks from './pages/HowItWorks';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +51,9 @@ function App() {
             <Route path="/signup"> <SignUp /> </Route>
             <Route path="/dashboard"><Redirect to="/signin"/></Route>
             <Route path="/edit"><Redirect to="/signin"/></Route>
+            <Route path="/aboutus"> <AboutUs /> </Route>
+            <Route path="/howitworks"> <HowItWorks /> </Route>
+
             
             {/* </ThemeProvider>          */}
           </Switch>
@@ -58,7 +64,8 @@ function App() {
         <Route path="/signup"><Redirect to="/dashboard"/></Route>
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
-        <Route path='/'> <Redirect to="/dashboard"/></Route>
+        <Route path="/edit_Exercise"><Edit_Exercise /></Route>
+        <Route path="/aboutus"> <AboutUs /> </Route>
         </>
       )}
     </Router>

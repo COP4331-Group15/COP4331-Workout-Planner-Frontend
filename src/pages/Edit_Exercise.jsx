@@ -4,16 +4,16 @@ import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom';
 import './styles.css'; 
 //import Split_day from "../components/Split_day.js";
-import Split_Table from "../components/Split_table.js";
+import Exercise from "../components/Edit_Exercise.js";
 import { DragDropContext } from "react-beautiful-dnd";
 //import background_img_edit_spilts from './risen-wang-20jX9b35r_M-unsplash.jpg';
 
-const Edit_Split = () => {
+const Edit_Exercise = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     const urlParams = new URLSearchParams(window.location.search);
-    const split_i = urlParams.get('split_i');
+    const exercise_id = urlParams.get('exercise_id');
     //const user_id =  firebase.auth().currentUser.uid;
 
     //some ugly testing code
@@ -38,8 +38,8 @@ const Edit_Split = () => {
     document.body.style = "background-Image: url('/risen-wang-20jX9b35r_M-unsplash.jpg'); background-size: auto 200%;";
     return (
         <div>
-            <Split_Table id="split_table_1" split_id = {split_i}>
-            </Split_Table>
+            <Exercise id="1" exercise_id = {exercise_id}>
+            </Exercise>
 
             {/* <div className ="container" onDragOver={dragoverfunc}>
                 {split_days_arr}
@@ -48,4 +48,4 @@ const Edit_Split = () => {
     )
 }
 
-export default Edit_Split
+export default Edit_Exercise
