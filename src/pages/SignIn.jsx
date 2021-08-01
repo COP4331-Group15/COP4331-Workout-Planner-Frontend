@@ -19,6 +19,8 @@ import Copyright from '../components/Copyright';
 
 import PasswordForget from '../components/PasswordForget';
 
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 function SignIn(props) {
   const classes = useStyles();
 
@@ -44,9 +46,17 @@ function SignIn(props) {
 
   const isValid = user.email === '' || user.password === '';
 
+  const theme = createMuiTheme({
+    palette: {
+      type: "dark",
+    }
+  });
+
   return (
-    <Grid container component="main" className={classes.root}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
+    <Grid container component="main" className={classes.root}>
+      
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
         <div className={classes.paper} >
@@ -116,6 +126,7 @@ function SignIn(props) {
         </div>
       </Grid>
     </Grid>
+    </ThemeProvider>
   );
 };
 

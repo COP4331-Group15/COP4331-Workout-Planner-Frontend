@@ -2,7 +2,7 @@ export const SidebarHome = {
     id1: 'about',
     id2: 'discover',
     id3: 'signup',
-    id4: '/login',
+    id4: '/signin',
     idcontent1: 'About',
     idcontent2: 'Discover',
     idcontent3: 'Sign Up',

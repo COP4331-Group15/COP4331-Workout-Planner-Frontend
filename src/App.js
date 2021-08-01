@@ -17,7 +17,7 @@ import {
 import Home from './pages/Home';
 // import Calendar from './pages/Calendar';
 // import Login from './pages/Login';
-//import TestPage from './pages/TestPage';
+// import TestPage from './pages/TestPage';
 import Edit_Split from './pages/Edit_Split';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'
@@ -43,22 +43,30 @@ function App() {
             {/* <ThemeProvider theme={theme}> */}
             {/* <Route path="/login"><Login /></Route> */}
             {/* <Route path="/signup1"><SignUp /></Route> */}
-            
+            {/* <Route path="/testpage"><TestPage /></Route> */}
             <Route path='/signin'><SignIn /></Route>
             <Route path="/signup"> <SignUp /> </Route>
-            <Route path="/dashboard"><Redirect to="/signin"/></Route>
-            <Route path="/edit"><Redirect to="/signin"/></Route>
+            {/* <Route path="/dashboard">
+              <Redirect to="/signin"/>
+              </Route>
+            <Route path="/edit">
+              <Redirect to="/signin"/>
+              </Route> */}
             
             {/* </ThemeProvider>          */}
           </Switch>
         </>
       ) : (
         <>
-        <Route path="/signin"><Redirect to="/dashboard"/></Route>
-        <Route path="/signup"><Redirect to="/dashboard"/></Route>
+        <Route path="/signin"><SignIn/>
+          </Route>
+        {/* <Route path="/signup"><SignUp/>
+          </Route> */}
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
-        <Route path='/'> <Redirect to="/dashboard"/></Route>
+        {/* <Route path='/'> 
+        <Redirect to="/dashboard"/>
+        </Route> */}
         </>
       )}
     </Router>

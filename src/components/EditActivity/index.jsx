@@ -11,6 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 
+import { patchExerciseData} from '../../services/communication';
+
 const useStyles = makeStyles(theme => ({
     formControl: {
       minWidth: '100%',
@@ -28,12 +30,13 @@ function EditActivity(props) {
 
     // Set default activity object
     const defaultActivity = {
+        muscleGroup: activity.muscleGroup,
         name: activity.name,
-        type: activity.type,
+        sets: activity.sets,
+        repetitions: activity.repetition,
         duration: activity.duration,
-        date: activity.date,
-        MuscleGroup: activity.MuscleGroup,
-        resistance: activity.resistance
+        resistance: activity.resistance,
+        date: activity.date
 
     }
 
@@ -47,13 +50,22 @@ function EditActivity(props) {
     }
 
     const handleSlider = e => {
+        const sets = e.target.getAttribute('aria-valuenow');
+        setNewActivity({...newActivity, sets: sets});
+    }
+
+    const handleSlider2 = e => {
+        const repetitions = e.target.getAttribute('aria-valuenow');
+        setNewActivity({...newActivity, repetitions: repetitions});
+    }
+
+    const handleSlider3 = e => {
         const duration = e.target.getAttribute('aria-valuenow');
-        const repetition = e.target.getAttribute('aria-valuenow');
-        const distance = e.target.getAttribute('aria-valuenow');
-        const resistance = e.target.getAttribute('aria-valuenow');
         setNewActivity({...newActivity, duration: duration});
-        setNewActivity({...newActivity, repetition: repetition});
-        setNewActivity({...newActivity, distance: distance});
+    }
+
+    const handleSlider4 = e => {
+        const resistance = e.target.getAttribute('aria-valuenow');
         setNewActivity({...newActivity, resistance: resistance});
     }
 
@@ -62,6 +74,13 @@ function EditActivity(props) {
     // Add the activity to firebase via the API made in this app
     const handleSubmit = action => {
         if (authUser) {
+
+            console.log(activityKey);
+
+             patchExerciseData(newActivity, activityKey).then(message => {
+                    console.log(message);
+                   });
+
             firebase.updateActivity(uid, newActivity, activityKey);
             setEditing(false);
             // Show alert and hide after 3sec
@@ -82,44 +101,51 @@ function EditActivity(props) {
                     margin="normal"
                     required
                     fullWidth
+                    label="Exercise Name"
                     value={newActivity.name}
-                    label="Activity name"
                     name="name"
                     onChange={handleChange}
                 />
-                <div style={{marginTop: '20px', marginBottom: '30px'}}>
-                    <Typography id="discrete-slider" gutterBottom>
-                        Type
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={newActivity.type}
-                        style={{minWidth: '100%'}}
-                        name="type"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>Cardio</MenuItem>
-                        <MenuItem value={2}>Resistance</MenuItem>
-                        <MenuItem value={3}>Other</MenuItem>
-                    </Select>
-                    <Typography id="discrete-slider" gutterBottom>
-                        Muscle Group
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={activity.MuscleGroup}
-                        style={{minWidth: '100%'}}
-                        name="MuscleGroup"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>Pecs</MenuItem>
-                        <MenuItem value={2}>Biceps</MenuItem>
-                        <MenuItem value={3}>Delts</MenuItem>
-                        <MenuItem value={4}>Other</MenuItem>
-                    </Select>
-                </div>
+                <TextField
+                    style={{marginTop: '5px'}}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Muscle Group"
+                    value={newActivity.muscleGroup}
+                    name="muscleGroup"
+                    onChange={handleChange}
+                />
+                <Typography id="discrete-slider" gutterBottom>
+                    Sets
+                </Typography>
+                <Slider
+                    defaultValue={parseInt(newActivity.sets)}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={0}
+                    max={10}
+                    name="sets"
+                    onChange={handleSlider}
+                    style={{marginBottom: '20px'}}
+                /><Typography id="discrete-slider" gutterBottom>
+                    Repetitions
+                </Typography>
+                <Slider
+                    defaultValue={parseInt(newActivity.repetitions)}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={0}
+                    max={20}
+                    name="repetitions"
+                    onChange={handleSlider2}
+                    style={{marginBottom: '20px'}}
+                />
                 <Typography id="discrete-slider" gutterBottom>
                     Duration
                 </Typography>
@@ -127,49 +153,19 @@ function EditActivity(props) {
                     defaultValue={parseInt(newActivity.duration)}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
-                    step={10}
+                    step={5}
                     marks
-                    min={10}
-                    max={120}
+                    min={0}
+                    max={60}
                     name="duration"
-                    onChange={handleSlider}
-                    style={{marginBottom: '20px'}}
-                />
-                <Typography id="discrete-slider" gutterBottom>
-                    Repetition
-                </Typography>
-                <Slider
-                    defaultValue={activity.repetition}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                    name="repetition"
-                    onChange={handleSlider}
-                    style={{marginBottom: '20px'}}
-                />
-                <Typography id="discrete-slider" gutterBottom>
-                    Distance (miles)
-                </Typography>
-                <Slider
-                    defaultValue={activity.distance}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                    name="distance"
-                    onChange={handleSlider}
+                    onChange={handleSlider3}
                     style={{marginBottom: '20px'}}
                 />
                 <Typography id="discrete-slider" gutterBottom>
                     Resistance 
                 </Typography>
                 <Slider
-                    defaultValue={activity.resistance}
+                    defaultValue={parseInt(newActivity.resistance)}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={10}
@@ -177,19 +173,19 @@ function EditActivity(props) {
                     min={10}
                     max={150}
                     name="resistance"
-                    onChange={handleSlider}
+                    onChange={handleSlider4}
                     style={{marginBottom: '20px'}}
                 />
             </FormControl>
             <Button
-                type="submit"
+                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 onClick={() => handleSubmit('add')}
                 disabled={isValid}
             >
-            Save activity
+            Save Exercise Changes
             </Button>
         </form>
     )

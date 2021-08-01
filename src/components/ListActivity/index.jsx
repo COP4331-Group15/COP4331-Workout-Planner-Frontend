@@ -20,14 +20,13 @@ function ActivityList(props) {
        const activityKey = Object.keys(activities)[i];
        // Connect to our firebase API
        const emptyActivity = {
-            date: null,
-            duration: null,
-            repetition: null,
-            distance: null,
-            MuscleGroup: null,
-            resistance: null,
-            type: null,
-            name: null,
+        muscleGroup: null,
+        name: null,
+        sets: null,
+        repetitions: null,
+        duration: null,
+        resistance: null,
+        date: null
        };
 
        props.firebase.updateActivity(props.authUser.uid, emptyActivity, activityKey);
@@ -53,18 +52,17 @@ function ActivityList(props) {
             
             {
                 activities === 'not set' || activities === null
-                    ? <p>No workouts added.</p>
+                    ? <p>No Exercises Added.</p>
                     :
                     <TableContainer component={Paper} >
                         <Table>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
-                                    <TableCell>Type</TableCell>
                                     <TableCell>Muscle Group</TableCell>
-                                    <TableCell>Duration</TableCell>
-                                    <TableCell>Repetition</TableCell>
-                                    <TableCell>Distance</TableCell>
+                                    <TableCell>Sets</TableCell>
+                                    <TableCell>Repetitions</TableCell>
+                                    <TableCell>Duration (Min)</TableCell>
                                     <TableCell>Resistance</TableCell>
                                     <TableCell>Actions</TableCell>
                                 </TableRow>
@@ -72,34 +70,14 @@ function ActivityList(props) {
                             <TableBody>
                             {
                                 Object.values(activities).map((activity, i) => {
-                                    let {name, type, duration, repetition, distance, MuscleGroup, resistance} = activity;
-                                    switch(activity.type, activity.MuscleGroup) {
-                                        case 1:
-                                            type = "Cardio";
-                                            MuscleGroup = "Pecs";
-                                            break;
-                                        case 2:
-                                            type = "Resistance";
-                                            MuscleGroup = "Bicpes";
-                                            break;
-                                        case 3:
-                                            type = "Other";
-                                            MuscleGroup = "Delts";
-                                            break;
-                                        case 4: 
-                                            MuscleGroup = "Other";
-                                        default:
-                                            type = "Not set";
-                                            MuscleGroup = "Not set";
-                                    };
+                                    let {name, muscleGroup, sets, repetitions, duration, resistance} = activity;
                                     return (
                                         <TableRow key={i}>
                                             <TableCell>{name}</TableCell>
-                                            <TableCell>{type}</TableCell>
-                                            <TableCell>{MuscleGroup}</TableCell>
-                                            <TableCell>{duration} min</TableCell>
-                                            <TableCell>{repetition}</TableCell>
-                                            <TableCell>{distance} miles</TableCell>
+                                            <TableCell>{muscleGroup}</TableCell>
+                                            <TableCell>{sets}</TableCell>
+                                            <TableCell>{repetitions}</TableCell>
+                                            <TableCell>{duration}</TableCell>
                                             <TableCell>{resistance} </TableCell>
                                             <TableCell>
                                                 <DeleteIcon 

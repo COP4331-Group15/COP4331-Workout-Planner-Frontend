@@ -5,20 +5,21 @@ import PageTitle from '../components/PageTitle';
 
 
 const TestPage = () => {
-    const [data, setdata] = React.useState({});
+    // const [data, setdata] = React.useState({});
 
-    React.useEffect(
-        () => {
-            getTestData().then( (info) => {
-                setdata(info);
-            })
-        }
-    );
+    // React.useEffect(
+    //     () => {
+    //         getTestData().then( (info) => {
+    //             setdata(info);
+    //         })
+    //     }
+    // );
 
     return (
         <div>
             <PageTitle />
-            <p>Hello World: {data.message?? 'empty'}</p>
+            <p>Hello</p>
+            {/* <p>Hello World: {data.message?? 'empty'}</p> */}
         </div>
     )
 }
