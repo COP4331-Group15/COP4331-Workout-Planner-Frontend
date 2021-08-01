@@ -7,7 +7,7 @@ export const NavBarHome = {
     idcontent2: 'Discover',
     idcontent3: 'Sign Up',
     idcontent4: 'Sign In',
-    idcontent5: 'Sign Out'
+    idcontent5: ''
 }
 
 export const NavBarCalendar = {

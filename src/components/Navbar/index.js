@@ -61,7 +61,7 @@ const Navbar = ({
             <NavbarSpace>
             <FaDumbbell/>
 
-            <NavLogo to='/' onClick={toggleHome}>Workout Planner</NavLogo>            </NavbarSpace>
+            <NavLogo to='/' onClick={toggleHome}>Hercules' Notebook</NavLogo>            </NavbarSpace>
             <MobileIcon onClick={toggle}>
               <FaBars />
             </MobileIcon>

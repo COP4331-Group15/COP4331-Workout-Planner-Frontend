@@ -161,7 +161,7 @@ class Split_table extends React.Component {
         Authorization: `Bearer ${token}`
       }
     }).then( async (res) => {
-      if(res == null){
+      if(res == null || res.data == null){
         this.createnewsplit();
         return;
       }
@@ -616,7 +616,7 @@ class Split_table extends React.Component {
                       Workout Name:
                       <p style={{fontSize: 2 }}></p>
                       <input type="text" id={item.id} name={item.id} value={item.content} onChange={this.textexist} style={{width:100}}></input>
-                      <button className="btn" name={item.id} onClick={this.dropdownV}>{item.V}</button>
+                      <button className="btn" name={item.id} onClick={this.dropdownV}>{item.V ?? "^"}</button>
                       <p style={{fontSize: 2 }}></p>
                       <div style={{display: item.Vshow}}>
                         MuscleGroup:

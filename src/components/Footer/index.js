@@ -55,9 +55,9 @@ const Footer = () => {
                     <SocialMedia>
                         <SocialMediaWrap>
                             <SocialLogo to='/' onClick={toggleHome}>
-                                Workout Planner
+                                Hercules' Notebook
                             </SocialLogo>
-                            <WebsiteRights>Workout Planner © 2021 All rights reserved.</WebsiteRights>
+                            <WebsiteRights>Hercules' Notebook © 2021 All rights reserved.</WebsiteRights>
                             <SocialIcons>
                             <SocialIconLinks href="/" target="_blank" aria-label="Facebook">
                                 <FaFacebook />

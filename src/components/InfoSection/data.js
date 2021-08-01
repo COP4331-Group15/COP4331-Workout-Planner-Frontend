@@ -7,8 +7,8 @@ export const homeObjOne = {
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
-    topLine: '"What is Workout Planner?"',
-    headline: 'Workout Planner keeps track of your workouts.​​',
+    topLine: '"What is Hercules\' Notebook?"',
+    headline: 'Hercules\' Notebook keeps track of your workouts.​​',
     description: 'Create your customized workout, to build your strength, and study your past workouts to adapts to your available gym equipment.',
     buttonLabel: 'Get started',
     imgStart: false,
@@ -25,9 +25,9 @@ export const homeObjTwo = {
     lightBg: true,
     lightText: false,
     lightTextDesc: false,
-    topLine: '"Why was Workout Planner created?"',
+    topLine: '"Why was Hercules\' Notebook created?"',
     headline: 'Workout plan designed to push your limits.​​​',
-    description: 'Workout Planner fills in the sets, reps and weight for each exercise based on you. As you get stronger, Workout Planner adapts to push yourself for your next workout.',
+    description: 'Hercules\' Notebook fills in the sets, reps and weight for each exercise based on you. As you get stronger, Hercules\' Notebook adapts to push yourself for your next workout.',
     buttonLabel: 'Learn More',
     imgStart: true,
     img: image2,
@@ -35,7 +35,7 @@ export const homeObjTwo = {
     dark: false,
     primary: false,
     darkText: true,
-    directory: '/calendar'
+    directory: '/signup'
 }
 
 export const homeObjThree = {
