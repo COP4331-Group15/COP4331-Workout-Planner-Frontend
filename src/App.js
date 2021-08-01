@@ -17,7 +17,7 @@ import {
 import Home from './pages/Home';
 // import Calendar from './pages/Calendar';
 // import Login from './pages/Login';
-//import TestPage from './pages/TestPage';
+// import TestPage from './pages/TestPage';
 import Edit_Split from './pages/Edit_Split';
 import Edit_Exercise from './pages/Edit_Exercise.jsx';
 import SignIn from './pages/SignIn';
@@ -46,7 +46,7 @@ function App() {
             {/* <ThemeProvider theme={theme}> */}
             {/* <Route path="/login"><Login /></Route> */}
             {/* <Route path="/signup1"><SignUp /></Route> */}
-            
+            {/* <Route path="/testpage"><TestPage /></Route> */}
             <Route path='/signin'><SignIn /></Route>
             <Route path="/signup"> <SignUp /> </Route>
             <Route path="/dashboard"><Redirect to="/signin"/></Route>

@@ -11,6 +11,10 @@ import CalendarHead from './calendar-head';
 import AddActivity from '../AddActivity';
 import EditActivity from '../EditActivity';
 import ActivityList from '../ListActivity';
+import { getCalendarData } from '../../services/communication';
+
+import AddWorkout from '../AddWorkout'
+
 
 function Calendar(props) {
 
@@ -68,12 +72,19 @@ function Calendar(props) {
     // const [activeDays, setActiveDays] = useState([]);
 
     const retrieveData = () => {
+
+        getCalendarData(selectedDay.year,selectedDay.month).then(data => {
+             console.log(data);
+        });
+
+
         
         let queryDate = `${selectedDay.day}-${selectedDay.month}-${selectedDay.year}`;
 
         let ref = firebase.db.ref().child(`users/${authUser.uid}/activities`);
         ref.orderByChild("date").equalTo(queryDate).on("value", snapshot => {
             let data = snapshot.val();
+            console.log(data);
             setActivities(data);
             setLoading(false);
             // setEditing(false); Add later
@@ -109,13 +120,21 @@ function Calendar(props) {
 
     const editActivity = (activity, i) => {
         setActivityKey(Object.keys(activities)[i]);
+        console.log(Object.keys(activities)[i]);
         setEditing(true);
         setActivity(activity);
     }
 
+    const [workout, setWorkout] = useState(true);
+
+    const editWorkout = () => {
+        setWorkout(true);
+    }
+
     return (
+
         <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item xs={8}>
                     <CalendarHead
                         allMonths={allMonths}
                         currentMonth={currentMonth}
@@ -137,12 +156,13 @@ function Calendar(props) {
                         // activeDays={activeDays}
                     />
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
+
+            <Grid item xs={4}>
                 <Paper className="paper">
                     { editing
                         ?
                             <>
-                                <h3>Edit activity on {selectedDay.month + 1}-{selectedDay.day} </h3>
+                                <h3>Edit Workout on {selectedDay.month + 1}-{selectedDay.day} </h3>
                                 <EditActivity 
                                     activity={activity}
                                     activityKey={activityKey}
@@ -156,19 +176,32 @@ function Calendar(props) {
                         :
                             <>
                                 <h3>Add Workout for {selectedDay.month + 1}-{selectedDay.day} </h3>
-                                <AddActivity 
+                                <AddWorkout 
                                     selectedDay={selectedDay} 
                                     authUser={props.authUser}
                                     setOpenSnackbar={setOpenSnackbar}
                                     setSnackbarMsg={setSnackbarMsg}
+                                    // editWorkout={editWorkout}
+                                    // setWorkout = {setWorkout}
                                 />
                             </>
                     }
                 </Paper>
             </Grid>
-            <Grid item xs={12} md={7}>
+            {!workout ? (
+            <>
+            <Grid xs={8}>
                 <Paper className="paper">
-                <h3>Activities on {selectedDay.month + 1}-{selectedDay.day}</h3>
+                <p>A Workout Does not exist</p>
+                </Paper>
+            </Grid>
+            </>
+            ) : (
+            <>
+            
+            <Grid xs={8}>
+                <Paper className="paper">
+                <h3>Exercises for Workout on {selectedDay.month + 1}-{selectedDay.day}</h3>
                 <ActivityList
                     loading={loading}
                     activities={activities}
@@ -180,6 +213,38 @@ function Calendar(props) {
                 />
                 </Paper>
             </Grid>
+            
+            <Grid item xs={4}>
+                <Paper className="paper">
+                    { editing
+                        ?
+                            <>
+                                <h3>Edit Exercise on {selectedDay.month + 1}-{selectedDay.day} </h3>
+                                <EditActivity 
+                                    activity={activity}
+                                    activityKey={activityKey}
+                                    selectedDay={selectedDay} 
+                                    authUser={props.authUser}
+                                    setEditing={setEditing}
+                                    setOpenSnackbar={setOpenSnackbar}
+                                    setSnackbarMsg={setSnackbarMsg}
+                                />
+                            </>
+                        :
+                            <>
+                                <h3>Add Exercise for {selectedDay.month + 1}-{selectedDay.day} </h3>
+                                <AddActivity 
+                                    selectedDay={selectedDay} 
+                                    authUser={props.authUser}
+                                    setOpenSnackbar={setOpenSnackbar}
+                                    setSnackbarMsg={setSnackbarMsg}
+                                />
+                            </>
+                    }
+                </Paper>
+            </Grid>
+            </>
+            )}
             <Snackbar 
                 anchorOrigin={{
                     vertical: 'bottom',

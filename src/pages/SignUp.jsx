@@ -43,6 +43,7 @@ function SignUp(props) {
   const handleSubmit = e => {
     props.firebase.auth.createUserWithEmailAndPassword(user.email, user.password)
     .then(authUser => {
+      sendVerificationEmail();
       // Create a user in the Firebase realtime database
       return props.firebase
         .user(authUser.user.uid)
@@ -54,11 +55,22 @@ function SignUp(props) {
     })
     .then(authUser => {
       setUser(initialUser);
-      props.history.push("/dashboard");
+      firebase.auth().signOut();
+      props.history.push("/signin");
     })
     .catch(error => {
       setUser({...user, error: error.message})
     });
+  }
+
+  const sendVerificationEmail = () => {
+    firebase.auth().currentUser.sendEmailVerification()
+    .then(() => {
+      window.alert("The Verification link is sent to your e-mail address. please check your inbox to verify your account");
+    })
+    .catch(error => {
+      console.error(error);
+    })
   }
 
   const isValid = user.name === '' || user.email === '' || user.password === '';

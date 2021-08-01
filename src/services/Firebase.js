@@ -39,6 +39,11 @@ class Firebase {
     doPasswordReset = email => 
         this.auth.sendPasswordResetEmail(email);
     
+    doSendEmailVerification = () =>
+            this.auth.sendEmailVerification();
+    
+    // dosendEmailVerification = () =>
+    //     this.auth.sendEmailVerification();
     /*** Database ***/
     user = uid => this.db.ref(`Users/${uid}`);
     users = () => this.db.ref('Users');
@@ -46,6 +51,11 @@ class Firebase {
     addActivity = (uid, activity) => {
         const ref = this.db.ref().child(`users/${uid}/activities`);
         ref.push(activity);
+    };
+
+    addWorkout = (uid, workout) => {
+        const ref = this.db.ref().child(`users/${uid}/workout`);
+        ref.push(workout);
     };
 
     updateActivity = (uid, activity, activityKey) => {
