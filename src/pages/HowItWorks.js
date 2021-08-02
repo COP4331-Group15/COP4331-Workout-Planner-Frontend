@@ -97,7 +97,7 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/collection/4474288/3500x3500"
+                    image="https://source.unsplash.com/22L7do1cOho/3500x3500"
                     title="Image title"
                   />
                 </Card>
@@ -110,7 +110,7 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/collection/9374406/3500x3500"
+                    image="https://source.unsplash.com/Ve8xC9OVkGU/3500x3500"
                     title="Image title"
                   />
                 </Card>
@@ -122,7 +122,7 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/collection/3203326/3500x3500"
+                    image="https://source.unsplash.com/hQtMTBm2zJE/3500x3500"
                     title="Image title"
                   />
                 </Card>

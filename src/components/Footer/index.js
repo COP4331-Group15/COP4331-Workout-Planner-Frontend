@@ -1,7 +1,6 @@
 import React from 'react'
 import {animateScroll as scroll} from 'react-scroll'
 import {FaFacebook, FaInstagram,FaYoutube,FaTwitter,FaLinkedin} from 'react-icons/fa';
-import AboutUs from '../../pages/AboutUs'
 import { 
     FooterContainer,
     FooterWrap,
@@ -31,8 +30,8 @@ const Footer = () => {
                         <FooterLinkItems>
                             <FooterLinkTitle>About us</FooterLinkTitle>
                                 <FooterLink to='howitworks'>How it works</FooterLink>
-                                <FooterLink to='discover'>Why was it made</FooterLink>
-                                <FooterLink to='/'>Terms of Service</FooterLink> 
+                                <FooterLink to='whymade'>Why was it made</FooterLink>
+                                <FooterLink to='tos'>Terms of Service</FooterLink> 
                             </FooterLinkItems>
                             <FooterLinkItems>
                             <FooterLinkTitle>Contact us</FooterLinkTitle>
