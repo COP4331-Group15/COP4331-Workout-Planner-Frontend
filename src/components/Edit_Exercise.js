@@ -112,7 +112,7 @@ class Exercise extends React.Component {
         //focusTypes: [1, 0, 0, 0, 0],
         name: "New Workout",
         sets: 0,
-        repititions: 0,
+        repetitions: 0,
         duration: 0,
         resistance: 0,
     };
@@ -123,7 +123,7 @@ class Exercise extends React.Component {
     this.createnewsplit = this.createnewsplit.bind(this);
     this.onchangeMuscleGroup = this.onchangeMuscleGroup.bind(this);
     this.onchangefocusTypes = this.onchangefocusTypes.bind(this);
-    this.onchangeRepititions = this.onchangeRepititions.bind(this);
+    this.onchangeRepetitions = this.onchangeRepetitions.bind(this);
     this.onchangeSets = this.onchangeSets.bind(this);
     this.onchangeDuration = this.onchangeDuration.bind(this);
     this.onchangeResistance = this.onchangeResistance.bind(this);
@@ -140,7 +140,7 @@ class Exercise extends React.Component {
     var muscleGroup;
     //var focusTypes;
     var sets;
-    var repititions;
+    var repetitions;
     var duration;
     var resistance;
     console.log(this.state.props.exercise_id);
@@ -158,7 +158,7 @@ class Exercise extends React.Component {
         muscleGroup = res.data.MuscleGroup;
         //focusTypes = res.data.FocusTypes;
         sets = res.data.Sets;
-        repititions = res.data.Repititions;
+        repetitions = res.data.Repetitions;
         duration = res.data.Duration;
         resistance = res.data.Resistance;
     });
@@ -168,7 +168,7 @@ class Exercise extends React.Component {
         muscleGroup: muscleGroup,
         //focusTypes: focusTypes,
         sets: sets,
-        repititions: repititions,
+        repetitions: repetitions,
         duration: duration % 60,
         duration0: Math.floor(duration / 60),
         resistance: resistance,
@@ -228,7 +228,7 @@ class Exercise extends React.Component {
       muscleGroup: this.state.muscleGroup,
       //focusTypes: this.state.focusTypes,
       sets: this.state.sets,
-      repititions: this.state.repititions,
+      repetitions: this.state.repetitions,
       duration: this.state.duration + this.state.duration0 * 60,
       resistance: this.state.resistance,
     };
@@ -290,7 +290,7 @@ class Exercise extends React.Component {
     await this.updateex();
   }
 
-  async onchangeRepititions(e){
+  async onchangeRepetitions(e){
     var intyy = 0;
     if(e.target.value){
       var removezeros = parseInt(e.target.value, 10);
@@ -299,7 +299,7 @@ class Exercise extends React.Component {
       }
     }
     this.setState({
-        repititions: intyy,
+        repetitions: intyy,
     });
     await this.updateex();
   }
@@ -380,9 +380,9 @@ class Exercise extends React.Component {
                     <p style={{fontSize: 2 }}></p>
                     <input type="number" id="sets"  min="1" max="999999" value={this.state.sets} onChange={this.onchangeSets} style={{width:100}}></input>
                     <p style={{fontSize: 2 }}></p>
-                    Repititions:
+                    Repetitions:
                     <p style={{fontSize: 2 }}></p>
-                    <input type="number" id="repititions"  min="1" max="999999" value={this.state.repititions} onChange={this.onchangeRepititions} style={{width:100}}></input>
+                    <input type="number" id="repetitions"  min="1" max="999999" value={this.state.repetitions} onChange={this.onchangeRepetitions} style={{width:100}}></input>
                     <p style={{fontSize: 2 }}></p>
                     Resistance:
                     <p style={{fontSize: 2 }}></p>
