@@ -35,9 +35,9 @@ const Footer = () => {
                             </FooterLinkItems>
                             <FooterLinkItems>
                             <FooterLinkTitle>Contact us</FooterLinkTitle>
-                                <FooterLink to='/'>Support</FooterLink>
-                                <FooterLink to='/'>Help</FooterLink>
-                                <FooterLink to='/'>Investors</FooterLink> 
+                                <FooterLink to='tos'>Support</FooterLink>
+                                <FooterLink to='tos'>Help</FooterLink>
+                                <FooterLink to='tos'>Investors</FooterLink> 
                             </FooterLinkItems>
                         </FooterLinksWrapper>
                         <FooterLinksWrapper>
@@ -59,19 +59,19 @@ const Footer = () => {
                             </SocialLogo>
                             <WebsiteRights>Hercules' Notebook © 2021 All rights reserved.</WebsiteRights>
                             <SocialIcons>
-                            <SocialIconLinks href="/" target="_blank" aria-label="Facebook">
+                            <SocialIconLinks href="https://www.facebook.com/TrioFitnessOCR/videos/906034103500521/?__so__=serp_videos_tab" target="_blank" aria-label="Facebook">
                                 <FaFacebook />
                             </SocialIconLinks>
-                            <SocialIconLinks href="/" target="_blank" aria-label="Instagram">
+                            <SocialIconLinks href="https://www.instagram.com/hercules_workout/" target="_blank" aria-label="Instagram">
                                 <FaInstagram />
                             </SocialIconLinks>
-                            <SocialIconLinks href="/" target="_blank" aria-label="Youtube">
+                            <SocialIconLinks href="https://www.youtube.com/watch?v=5ihi0QG-rCM" target="_blank" aria-label="Youtube">
                                 <FaYoutube />
                             </SocialIconLinks>
-                            <SocialIconLinks href="/" target="_blank" aria-label="Twitter">
+                            <SocialIconLinks href="https://twitter.com/herculesfit3?lang=en" target="_blank" aria-label="Twitter">
                                 <FaTwitter />
                             </SocialIconLinks>
-                            <SocialIconLinks href="/" target="_blank" aria-label="Linkedin">
+                            <SocialIconLinks href="https://www.linkedin.com/in/thomasstoeckert" target="_blank" aria-label="LinkedIn">
                                 <FaLinkedin />
                             </SocialIconLinks>
                             </SocialIcons>

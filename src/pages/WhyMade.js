@@ -102,7 +102,7 @@ export default function SignInSide() {
 
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
               <br></br><br></br>
-              Everyone in our team has passion for fitness and we wanted to make this application
+              Everyone in our team has passion for fitness, so we decided to make an application
                for anyone that wants a diverse workout plan
               <br></br>   
           </Typography>
@@ -118,7 +118,7 @@ export default function SignInSide() {
                If you really like the workout, you can save it and revisit the exercise whenever you feel like it. 
                Nothing is holding you back so try Workout planner today!
               <br></br><br></br>
-              We sincerely thank you for incorporating Hercule's Notebook in your daily exercise, now go out there and get
+              We sincerely thank you for incorporating Hercules' Notebook in your daily exercise, now go out there and get
                into the body of your dreams
           </Typography>
 

@@ -160,7 +160,7 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/YFmvjO3TP_s/3500x3500"
+                    image="https://source.unsplash.com/sHfo3WOgGTU/3500x3500"
                     title="Image title"
                   />
                 </Card>
