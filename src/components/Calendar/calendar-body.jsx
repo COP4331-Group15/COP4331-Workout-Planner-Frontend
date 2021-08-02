@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 const CalendarBody = props => {
 
-    const { firstDayOfMonth, daysInMonth, currentDay, currentMonth, currentMonthNum, selectedDay, activeDays, setSelectedDay, actualMonth, weekdays } = props;
+    const { firstDayOfMonth, daysInMonth, currentDay, currentMonth, currentMonthNum, selectedDay, userData, setSelectedDay, actualMonth, weekdays } = props;
 
     let blanks = [];
     for (let i = 0; i < firstDayOfMonth(); i++) {
@@ -23,7 +23,7 @@ const CalendarBody = props => {
 
     let monthDays = [];
     for (let d = 1; d <= daysInMonth(); d++) {
-        let currDay, selectDay, activeDay;
+        let currDay, selectDay, workoutDay = {fontWeight: "normal"};
 
         // Check if day is today
         if (currentDay() == d && currentMonth() == actualMonth()) currDay = "today";
@@ -31,13 +31,16 @@ const CalendarBody = props => {
         // Check if day is selected day
         if (selectedDay.day == d && currentMonthNum() == selectedDay.month ) selectDay = "selected-day";
 
+        // Check if day has workout
+        if (!userData?.calendar[selectedDay.day - 1].Key) workoutDay = {fontWeight: "bold"};
+
         monthDays.push(
             <TableCell 
                 key={d} 
                 className={`week-day ${currDay} ${selectDay}`}
                 onClick={() => setSelectedDay(d)}
             >
-                <span className={activeDay}>{d}</span>
+                <span style={workoutDay}>{d}</span>
             </TableCell>
         );
     }

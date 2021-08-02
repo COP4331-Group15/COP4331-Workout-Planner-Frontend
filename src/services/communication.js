@@ -41,6 +41,30 @@ export const getCalendarData = async (year, month) => {
     }
 }
 
+export const getExercisesDataGeneric = async (workoutID) => {
+    const header = await createToken();
+    const uuid = firebase.auth().currentUser.uid;
+
+    try {
+        const res = await axios.get(url + "/workout/" + uuid + "/" + workoutID + "/exercises", header);
+        return res.data;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export const getExercisesDataDateSpecifc = async (year, month, day) => {
+    const header = await createToken();
+    const uuid = firebase.auth().currentUser.uid;
+
+    try {
+        const res = await axios.get(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/exercises", header);
+        return res.data;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const postWorkoutData = async (workout) => {
     const header = await createToken();
     const uuid = firebase.auth().currentUser.uid;

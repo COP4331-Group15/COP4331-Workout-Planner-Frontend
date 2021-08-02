@@ -11,7 +11,7 @@ import CalendarHead from './calendar-head';
 import AddActivity from '../AddActivity';
 import EditActivity from '../EditActivity';
 import ActivityList from '../ListActivity';
-import { getCalendarData } from '../../services/communication';
+import { getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric } from '../../services/communication';
 
 import AddWorkout from '../AddWorkout'
 
@@ -52,7 +52,29 @@ function Calendar(props) {
                 day,
                 month: currentMonthNum()
         });
-         // Later refresh data
+        // Get the user's workout for that day
+        const selectedWorkout = calendarData.calendar[parseInt(selectedDay.day) - 1];
+        
+        setTodaysWorkout(selectedWorkout);
+        // Get the user's exercises for that day
+        // (Depends on the type of workout)
+        console.log(selectedWorkout.Key);
+        if(!selectedWorkout.Key) {
+            // No key means it is a date-specific workout
+            console.log("Trying to access exercises for " + selectedDay.month + "/" + selectedDay.day);
+            getExercisesDataDateSpecifc(new Date().getFullYear, selectedDay.month, selectedDay.day).then((e) => setTodaysExercises(e));
+        } else {
+            
+            console.log(selectedWorkout.Key);
+            console.log(typeof selectedWorkout.Key);
+            const key = selectedWorkout.Key;
+            console.log(key);
+            console.log("Trying to access exercises for " + key);
+            getExercisesDataGeneric(key).then((e) => {
+                setTodaysExercises(e);
+                console.log(e);
+            })
+        }
     };
 
     const currentMonthNum = () => dateObject.month();
@@ -71,45 +93,19 @@ function Calendar(props) {
     const [loading, setLoading] = useState([]);
     // const [activeDays, setActiveDays] = useState([]);
 
+    /*** USER DATA ***/
+    const [calendarData, setCalendarData] = useState();
+    const [todaysWorkout, setTodaysWorkout] = useState();
+    const [todaysExercises, setTodaysExercises] = useState();
+
     const retrieveData = () => {
 
+        // Fetch the user's calendar data
         getCalendarData(selectedDay.year,selectedDay.month).then(data => {
+             setCalendarData(data);
              console.log(data);
         });
-
-
-        
-        let queryDate = `${selectedDay.day}-${selectedDay.month}-${selectedDay.year}`;
-
-        let ref = firebase.db.ref().child(`users/${authUser.uid}/activities`);
-        ref.orderByChild("date").equalTo(queryDate).on("value", snapshot => {
-            let data = snapshot.val();
-            console.log(data);
-            setActivities(data);
-            setLoading(false);
-            // setEditing(false); Add later
-        });
-
-        // Update active days
-        // retrieveActiveDays();
     };
-
-    // const retrieveActiveDays = () => {
-    //     let ref = firebase.db.ref().child(`users/${authUser.uid}/activities`);
-    //     ref.on("value", snapshot => {
-    //         let data = snapshot.val();
-    //         const values = Object.values(data);
-    //         // Store all active day/month combinations in array for calendar
-    //         const arr = []; 
-    //         arr = values.map(obj => {
-    //             return obj.date.length === 8
-    //             ? obj.date.slice(0,3)
-    //             : obj.date.slice(0,4)
-    //         });
-    //         console.log(arr);
-    //         setActiveDays(arr);
-    //     });
-    // }
 
     useEffect(() => retrieveData(), [selectedDay]);
 
@@ -125,15 +121,11 @@ function Calendar(props) {
         setActivity(activity);
     }
 
-    const [workout, setWorkout] = useState(true);
-
-    const editWorkout = () => {
-        setWorkout(true);
-    }
-
     return (
 
+        /* // Overall Calendar Workspace */
         <Grid container spacing={3}>
+            {/* // Calendar Body */}
             <Grid item xs={8}>
                     <CalendarHead
                         allMonths={allMonths}
@@ -152,8 +144,8 @@ function Calendar(props) {
                         actualMonth={actualMonth}
                         setSelectedDay={setSelectedDay}
                         selectedDay={selectedDay}
-                        weekdays={moment.weekdays()} 
-                        // activeDays={activeDays}
+                        weekdays={moment.weekdays()}
+                        userData={calendarData}
                     />
             </Grid>
 
@@ -188,7 +180,7 @@ function Calendar(props) {
                     }
                 </Paper>
             </Grid>
-            {!workout ? (
+            {/* {!workout ? ( */}
             <>
             <Grid xs={8}>
                 <Paper className="paper">
@@ -196,21 +188,21 @@ function Calendar(props) {
                 </Paper>
             </Grid>
             </>
-            ) : (
-            <>
+            {/* ) : ( */}
+            {/* <>
             
             <Grid xs={8}>
                 <Paper className="paper">
                 <h3>Exercises for Workout on {selectedDay.month + 1}-{selectedDay.day}</h3>
-                <ActivityList
-                    loading={loading}
-                    activities={activities}
-                    authUser={props.authUser}
-                    setOpenSnackbar={setOpenSnackbar}
-                    setSnackbarMsg={setSnackbarMsg}
-                    editActivity={editActivity}
-                    setEditing={setEditing}
-                />
+                    <ActivityList
+                        loading={loading}
+                        activities={activities}
+                        authUser={props.authUser}
+                        setOpenSnackbar={setOpenSnackbar}
+                        setSnackbarMsg={setSnackbarMsg}
+                        editActivity={editActivity}
+                        setEditing={setEditing}
+                    />
                 </Paper>
             </Grid>
             
@@ -244,7 +236,7 @@ function Calendar(props) {
                 </Paper>
             </Grid>
             </>
-            )}
+            )} */}
             <Snackbar 
                 anchorOrigin={{
                     vertical: 'bottom',
