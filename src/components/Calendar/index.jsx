@@ -52,27 +52,23 @@ function Calendar(props) {
                 day,
                 month: currentMonthNum()
         });
+        // If we don't have the calendar loaded yet, skip out
+        if(!calendarData) {
+            return;
+        }
         // Get the user's workout for that day
         const selectedWorkout = calendarData.calendar[parseInt(selectedDay.day) - 1];
         
         setTodaysWorkout(selectedWorkout);
         // Get the user's exercises for that day
         // (Depends on the type of workout)
-        console.log(selectedWorkout.Key);
         if(!selectedWorkout.Key) {
             // No key means it is a date-specific workout
-            console.log("Trying to access exercises for " + selectedDay.month + "/" + selectedDay.day);
             getExercisesDataDateSpecifc(new Date().getFullYear, selectedDay.month, selectedDay.day).then((e) => setTodaysExercises(e));
         } else {
-            
-            console.log(selectedWorkout.Key);
-            console.log(typeof selectedWorkout.Key);
             const key = selectedWorkout.Key;
-            console.log(key);
-            console.log("Trying to access exercises for " + key);
             getExercisesDataGeneric(key).then((e) => {
-                setTodaysExercises(e);
-                console.log(e);
+                setTodaysExercises(e.exercises);
             })
         }
     };
@@ -180,7 +176,7 @@ function Calendar(props) {
                     }
                 </Paper>
             </Grid>
-            {/* {!workout ? ( */}
+            {!todaysWorkout ? (
             <>
             <Grid xs={8}>
                 <Paper className="paper">
@@ -188,15 +184,15 @@ function Calendar(props) {
                 </Paper>
             </Grid>
             </>
-            {/* ) : ( */}
-            {/* <>
+            ) : ( 
+            <>
             
             <Grid xs={8}>
                 <Paper className="paper">
                 <h3>Exercises for Workout on {selectedDay.month + 1}-{selectedDay.day}</h3>
                     <ActivityList
                         loading={loading}
-                        activities={activities}
+                        activities={todaysExercises}
                         authUser={props.authUser}
                         setOpenSnackbar={setOpenSnackbar}
                         setSnackbarMsg={setSnackbarMsg}
@@ -236,7 +232,7 @@ function Calendar(props) {
                 </Paper>
             </Grid>
             </>
-            )} */}
+            )}
             <Snackbar 
                 anchorOrigin={{
                     vertical: 'bottom',

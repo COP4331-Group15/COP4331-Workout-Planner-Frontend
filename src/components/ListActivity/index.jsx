@@ -51,7 +51,7 @@ function ActivityList(props) {
             }
             
             {
-                activities === 'not set' || activities === null
+                activities === 'not set' || activities === null || activities === undefined || activities.length <= 0
                     ? <p>No Exercises Added.</p>
                     :
                     <TableContainer component={Paper} >
@@ -70,15 +70,15 @@ function ActivityList(props) {
                             <TableBody>
                             {
                                 Object.values(activities).map((activity, i) => {
-                                    let {name, muscleGroup, sets, repetitions, duration, resistance} = activity;
+                                    let {Name, MuscleGroup, Sets, Repetitions, Duration, Resistance} = activity;
                                     return (
                                         <TableRow key={i}>
-                                            <TableCell>{name}</TableCell>
-                                            <TableCell>{muscleGroup}</TableCell>
-                                            <TableCell>{sets}</TableCell>
-                                            <TableCell>{repetitions}</TableCell>
-                                            <TableCell>{duration}</TableCell>
-                                            <TableCell>{resistance} </TableCell>
+                                            <TableCell>{Name}</TableCell>
+                                            <TableCell>{MuscleGroup}</TableCell>
+                                            <TableCell>{Sets}</TableCell>
+                                            <TableCell>{Repetitions}</TableCell>
+                                            <TableCell>{Duration}</TableCell>
+                                            <TableCell>{Resistance} </TableCell>
                                             <TableCell>
                                                 <DeleteIcon 
                                                     onClick={e => deleteActivity(i)}
