@@ -16,9 +16,7 @@ import { colors } from '@material-ui/core';
 
 function ActivityList(props) {
     const {loading, activities, editActivity, setOpenSnackbar, setSnackbarMsg, setEditing, canEdit, deleteClicked} = props;
-
-    console.log(activities);
-
+    
     return (
         <>
             { 
@@ -60,7 +58,7 @@ function ActivityList(props) {
                                                 <IconButton onClick={e => deleteClicked(i)} disabled={!canEdit}>
                                                     <DeleteIcon htmlColor={colors.black}/>
                                                 </IconButton>
-                                                <IconButton onClick={e => editActivity(i)} disabled={canEdit}>
+                                                <IconButton onClick={e => editActivity(i)} disabled={!canEdit}>
                                                     <EditIcon htmlColor={colors.black}/>
                                                 </IconButton>
                                             </TableCell>

@@ -60,7 +60,6 @@ export const getExercisesDataDateSpecifc = async (year, month, day) => {
 
     try {
         const res = await axios.get(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/exercises", header);
-        console.log(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/exercises");
         return res.data;
     } catch (e) {
         console.error(e);

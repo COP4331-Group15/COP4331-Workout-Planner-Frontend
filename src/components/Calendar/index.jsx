@@ -101,9 +101,6 @@ function Calendar(props) {
         // Fetch the user's calendar data
         getCalendarData(new Date().getFullYear(), selectedDay.month).then(data => {
             setCalendarData(data);
-            console.log("Got data");
-            console.log(data);
-
             const selectedWorkout = data.calendar[selectedDay.day - 1];
             setTodaysWorkout(selectedWorkout);
         });
@@ -133,10 +130,8 @@ function Calendar(props) {
     }
 
     const addActivity = async activity =>  {
-        console.log(activity);
         // Add this activity to the server
         const key = (await postExerciseData(activity)).data.name;
-        console.log(key);
 
         // If we don't have exercises, create one
         const relevantWorkout = calendarData.calendar[selectedDay.day - 1];
@@ -162,9 +157,11 @@ function Calendar(props) {
         setEditing(todaysExercises[i]);
     }
 
-    const deleteActivityClicked = async activity => {
+    const deleteActivityClicked = async index => {
+        const activityKey = todaysExercises[index].Key;
+
         // Delete activity (exercise) on the server
-        await deleteExerciseData(activity.Key);
+        await deleteExerciseData(activityKey);
         // Ask for new calendar data
         retrieveData();
     }
@@ -274,7 +271,7 @@ function Calendar(props) {
                                             selectedDay={selectedDay}
                                             selectedDay={selectedDay}
                                             authUser={props.authUser}
-                                            setEditing={null/* setEditing */}
+                                            handleEditCancel={() => setEditing(false)}
                                             setOpenSnackbar={setOpenSnackbar}
                                             setSnackbarMsg={setSnackbarMsg}
                                         />
