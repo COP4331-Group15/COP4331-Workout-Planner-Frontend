@@ -54,9 +54,9 @@ function SignUp(props) {
           activities: 'not set'
         });
     })
-    .then(authUser => {
+    .then(async authUser => {
       setUser(initialUser);
-      firebase.auth().signOut();
+      await firebase.auth().signOut();
       props.history.push("/signin");
     })
     .catch(error => {

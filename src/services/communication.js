@@ -108,6 +108,7 @@ export const patchExerciseData = async (exercise, exerciseId) => {
 
     try{
         const res = await axios.patch(url + "/exercise/" + uuid + "/" + exerciseId + "/update", exercise, header);
+        console.log(url + "/exercise/" + uuid + "/" + exerciseId + "/update", exercise);
         return;
     } catch (e) {
         console.error(e);

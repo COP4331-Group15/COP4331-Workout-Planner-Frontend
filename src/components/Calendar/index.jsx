@@ -12,7 +12,7 @@ import CalendarHead from './calendar-head';
 import AddActivity from '../AddActivity';
 import EditActivity from '../EditActivity';
 import ActivityList from '../ListActivity';
-import { deleteCalendarData, deleteExerciseData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, postExerciseData, postWorkoutData, postWorkoutDateSpecific } from '../../services/communication';
+import { deleteCalendarData, deleteExerciseData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, patchExerciseData, postExerciseData, postWorkoutData, postWorkoutDateSpecific } from '../../services/communication';
 
 import AddWorkout from '../AddWorkout'
 import EditWorkout from '../EditWorkout';
@@ -64,7 +64,7 @@ function Calendar(props) {
 
         // Get the user's exercises for that day
         // (Depends on the type of workout)
-        if (!selectedWorkout.Key) {
+        if (!selectedWorkout?.Key ?? false) {
             // No key means it is a date-specific workout
             console.log("Date speciifc!");
             getExercisesDataDateSpecifc(new Date().getFullYear(), currentMonthNum(), day).then((e) =>{
@@ -103,6 +103,19 @@ function Calendar(props) {
             setCalendarData(data);
             const selectedWorkout = data.calendar[selectedDay.day - 1];
             setTodaysWorkout(selectedWorkout);
+
+            // Get the user's exercises for that day
+            // (Depends on the type of workout)
+            if (!selectedWorkout?.Key ?? false) {
+                // No key means it is a date-specific workout
+                getExercisesDataDateSpecifc(new Date().getFullYear(), currentMonthNum(), selectedDay.day).then((e) =>{
+                    setTodaysExercises(e.exercises)});
+            } else {
+                const key = selectedWorkout.Key;
+                getExercisesDataGeneric(key).then((e) => {
+                    setTodaysExercises(e.exercises);
+                })
+            }
         });
     };
 
@@ -157,8 +170,19 @@ function Calendar(props) {
         setEditing(todaysExercises[i]);
     }
 
+    const saveExerciseEdit = async (activity)  => {
+
+        console.log(activity);
+        console.log("hello");
+
+        await patchExerciseData(activity, activity.key);
+
+        retrieveData();
+    }
+
     const deleteActivityClicked = async index => {
         const activityKey = todaysExercises[index].Key;
+
 
         // Delete activity (exercise) on the server
         await deleteExerciseData(activityKey);
@@ -272,6 +296,7 @@ function Calendar(props) {
                                             selectedDay={selectedDay}
                                             authUser={props.authUser}
                                             handleEditCancel={() => setEditing(false)}
+                                            saveExerciseEdit={saveExerciseEdit}
                                             setOpenSnackbar={setOpenSnackbar}
                                             setSnackbarMsg={setSnackbarMsg}
                                         />

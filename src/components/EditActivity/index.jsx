@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 function EditActivity(props) {
     const classes = useStyles();
 
-    const { authUser, firebase, activity, activityKey, handleEditCancel, setEditing, setOpenSnackbar, setSnackbarMsg } = props;
+    const { authUser, firebase, activity, handleEditCancel, saveExerciseEdit, setEditing, setOpenSnackbar, setSnackbarMsg } = props;
     const uid = authUser.uid;
 
     // Set default activity object
@@ -36,12 +36,10 @@ function EditActivity(props) {
         Repetitions: activity?.Repetitions ?? 0,
         Duration: activity?.Duration ?? 0,
         Resistance: activity?.Resistance ?? 0,
+        Key: activity?.Key ?? ""
     }
 
     useEffect(() => {
-        console.log("HellO!");
-        console.log(activity.Name);
-        console.log(activity);
         setNewActivity({
             MuscleGroup: activity?.MuscleGroup ?? "Default",
             Name: activity?.Name ?? "New Exercise",
@@ -49,17 +47,18 @@ function EditActivity(props) {
             Repetitions: activity?.Repetitions ?? 0,
             Duration: activity?.Duration ?? 0,
             Resistance: activity?.Resistance ?? 0,
-            date: activity?.Date
+            Key: activity?.Key ?? ""
         })
     }, [activity]);
 
     const [newActivity, setNewActivity] = useState(defaultActivity);
 
-    const handleChange = e => {
-        const { Name, value } = e.target
+    const handleChange = (e, v) => {
+        console.log(e);
+        const { name, value } = e.target
         setNewActivity({
             ...newActivity,
-            [Name]: value
+            [name]: value
         });
     }
 
@@ -82,22 +81,16 @@ function EditActivity(props) {
     const isValid = newActivity.Name === '';
 
     // Add the activity to firebase via the API made in this app
-    const handleSubmit = action => {
-        if (authUser) {
-
-            patchExerciseData(newActivity, activityKey).then(message => {
-                console.log(message);
-            });
-
-            firebase.updateActivity(uid, newActivity, activityKey);
-            setEditing(false);
-            // Show alert and hide after 3sec
-            setOpenSnackbar(true);
-            setSnackbarMsg('Updated activity');
-            setTimeout(() => {
-                setOpenSnackbar(false)
-            }, 3000)
-        };
+    const handleSubmit = () => {
+        saveExerciseEdit({
+            name: newActivity.Name,
+            muscleGroup: newActivity.MuscleGroup,
+            sets: newActivity.Sets,
+            repetitions: newActivity.Repetitions,
+            duration: newActivity.Duration,
+            resistance: newActivity.Resistance,
+            key: newActivity.Key
+        });
     }
 
     return (
@@ -111,7 +104,7 @@ function EditActivity(props) {
                     fullWidth
                     label="Exercise Name"
                     value={newActivity.Name}
-                    Name="Name"
+                    name="Name"
                     onChange={handleChange}
                 />
                 <TextField
@@ -122,7 +115,7 @@ function EditActivity(props) {
                     fullWidth
                     label="Muscle Group"
                     value={newActivity.MuscleGroup}
-                    Name="MuscleGroup"
+                    name="MuscleGroup"
                     onChange={handleChange}
                 />
                 <Typography id="discrete-slider" gutterBottom>
@@ -199,7 +192,7 @@ function EditActivity(props) {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={() => handleSubmit('add')}
+                onClick={handleSubmit}
                 disabled={isValid}
             >
                 Save Exercise Changes
