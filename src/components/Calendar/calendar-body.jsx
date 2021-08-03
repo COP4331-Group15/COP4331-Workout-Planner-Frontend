@@ -32,7 +32,7 @@ const CalendarBody = props => {
         if (selectedDay.day == d && currentMonthNum() == selectedDay.month ) selectDay = "selected-day";
 
         // Check if day has workout
-        if (!userData?.calendar[selectedDay.day - 1].Key) workoutDay = {fontWeight: "bold"};
+        if (!userData?.calendar[d - 1]?.Key ?? false) workoutDay = {fontWeight: "bold"};
 
         monthDays.push(
             <TableCell 
