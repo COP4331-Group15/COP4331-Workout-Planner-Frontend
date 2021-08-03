@@ -52,23 +52,23 @@ function AddActivity(props) {
             [name]: value});
     }
 
-    const handleSlider = e => {
-        const sets = e.target.getAttribute('aria-valuenow');
+    const handleSlider = (e, v) => {
+        const sets = v;
         setActivity({...activity, sets: sets});
     }
 
-    const handleSlider2 = e => {
-        const repetitions = e.target.getAttribute('aria-valuenow');
+    const handleSlider2 = (e, v) => {
+        const repetitions = v;
         setActivity({...activity, repetitions: repetitions});
     }
 
-    const handleSlider3 = e => {
-        const duration = e.target.getAttribute('aria-valuenow');
+    const handleSlider3 = (e, v) => {
+        const duration = v;
         setActivity({...activity, duration: duration});
     }
 
-    const handleSlider4 = e => {
-        const resistance = e.target.getAttribute('aria-valuenow');
+    const handleSlider4 = (e, v) => {
+        const resistance = v;
         setActivity({...activity, resistance: resistance});
     }
 
@@ -136,7 +136,7 @@ function AddActivity(props) {
                     Sets
                 </Typography>
                 <Slider
-                    defaultValue={activity.sets}
+                    value={activity.sets}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={1}
@@ -150,7 +150,7 @@ function AddActivity(props) {
                     Repetitions
                 </Typography>
                 <Slider
-                    defaultValue={activity.repetitions}
+                    value={activity.repetitions}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={1}
@@ -165,7 +165,7 @@ function AddActivity(props) {
                     Duration
                 </Typography>
                 <Slider
-                    defaultValue={activity.duration}
+                    value={activity.duration}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={5}
@@ -176,89 +176,11 @@ function AddActivity(props) {
                     onChange={handleSlider3}
                     style={{marginBottom: '20px'}}
                 />
-                {/* <div style={{marginTop: '20px', marginBottom: '30px'}}>
-                    <Typography id="discrete-slider" gutterBottom>
-                        Type
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={activity.type}
-                        style={{minWidth: '100%'}}
-                        name="type"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>Cardio</MenuItem>
-                        <MenuItem value={2}>Resistance</MenuItem>
-                        <MenuItem value={3}>Other</MenuItem>
-                    </Select>
-                    <Typography id="discrete-slider" gutterBottom>
-                        Muscle Group
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={activity.MuscleGroup}
-                        style={{minWidth: '100%'}}
-                        name="MuscleGroup"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>Pecs</MenuItem>
-                        <MenuItem value={2}>Biceps</MenuItem>
-                        <MenuItem value={3}>Delts</MenuItem>
-                        <MenuItem value={4}>Other</MenuItem>
-                    </Select>
-                </div>
-                <Typography id="discrete-slider" gutterBottom>
-                    Duration (min)
-                </Typography>
-                <Slider
-                    defaultValue={activity.duration}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={10}
-                    marks
-                    min={10}
-                    max={150}
-                    name="duration"
-                    onChange={handleSlider}
-                    style={{marginBottom: '20px'}}
-                />
-                <Typography id="discrete-slider" gutterBottom>
-                    Repetition
-                </Typography>
-                <Slider
-                    defaultValue={activity.repetition}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                    name="repetition"
-                    onChange={handleSlider}
-                    style={{marginBottom: '20px'}}
-                />
-                <Typography id="discrete-slider" gutterBottom>
-                    Distance (miles)
-                </Typography>
-                <Slider
-                    defaultValue={activity.distance}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                    name="distance"
-                    onChange={handleSlider}
-                    style={{marginBottom: '20px'}}
-                /> */}
                 <Typography id="discrete-slider" gutterBottom>
                     Resistance 
                 </Typography>
                 <Slider
-                    defaultValue={activity.resistance}
+                    value={activity.resistance}
                     aria-labelledby="discrete-slider"
                     valueLabelDisplay="auto"
                     step={10}
