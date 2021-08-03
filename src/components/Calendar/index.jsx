@@ -12,7 +12,7 @@ import CalendarHead from './calendar-head';
 import AddActivity from '../AddActivity';
 import EditActivity from '../EditActivity';
 import ActivityList from '../ListActivity';
-import { deleteCalendarData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, postWorkoutDateSpecific } from '../../services/communication';
+import { deleteCalendarData, deleteExerciseData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, postWorkoutDateSpecific } from '../../services/communication';
 
 import AddWorkout from '../AddWorkout'
 import EditWorkout from '../EditWorkout';
@@ -89,7 +89,7 @@ function Calendar(props) {
     /*** ACTIVITY LIST ***/
     const [activities, setActivities] = useState(true);
     const [loading, setLoading] = useState([]);
-    // const [activeDays, setActiveDays] = useState([]);
+    const [editing, setEditing] = useState(false);
 
     /*** USER DATA ***/
     const [calendarData, setCalendarData] = useState();
@@ -135,6 +135,13 @@ function Calendar(props) {
     const handleDeleteWorkout = async date => {
         // Delete workout on the server
         await deleteCalendarData(new Date().getFullYear(), date.month, date.day);
+        // Ask for new calendar data
+        retrieveData();
+    }
+
+    const deleteActivityClicked = async activity => {
+        // Delete activity (exercise) on the server
+        await deleteExerciseData(activity.Key);
         // Ask for new calendar data
         retrieveData();
     }
@@ -222,17 +229,19 @@ function Calendar(props) {
                                 loading={loading}
                                 activities={todaysExercises}
                                 authUser={props.authUser}
+                                canEdit={!todaysWorkout.Key}
                                 setOpenSnackbar={setOpenSnackbar}
                                 setSnackbarMsg={setSnackbarMsg}
                                 editActivity={editActivity}
-                                setEditing={null/* setEditing */}
+                                setEditing={setEditing}
+                                deleteClicked={deleteActivityClicked}
                             />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={4}>
                         <Paper className="paper">
-                            {false
+                            {editing
                                 ?
                                 <>
                                     <h3>Edit Exercise on {selectedDay.month + 1}-{selectedDay.day} </h3>
@@ -240,7 +249,7 @@ function Calendar(props) {
                                         activity={activity}
                                         activityKey={activityKey}
                                         selectedDay={selectedDay}
-                                    selectedDay={selectedDay} 
+                                        selectedDay={selectedDay} 
                                         selectedDay={selectedDay}
                                         authUser={props.authUser}
                                         setEditing={null/* setEditing */}

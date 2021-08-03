@@ -2,6 +2,7 @@ import React from 'react';
 import { withFirebase } from  '../../services';
 import loader from './loader.gif';
 
+import { IconButton } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,9 +12,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { colors } from '@material-ui/core';
 
 function ActivityList(props) {
-    const {loading, activities, editActivity,setOpenSnackbar, setSnackbarMsg, setEditing} = props;
+    const {loading, activities, editActivity,setOpenSnackbar, setSnackbarMsg, setEditing, canEdit} = props;
 
     const deleteActivity = (i) => {
         // Get key of activity in firebase
@@ -80,13 +82,12 @@ function ActivityList(props) {
                                             <TableCell>{Duration ?? 0}</TableCell>
                                             <TableCell>{Resistance ?? 0} </TableCell>
                                             <TableCell>
-                                                <DeleteIcon 
-                                                    onClick={e => deleteActivity(i)}
-                                                />
-                                                <EditIcon
-                                                    onClick={e => editActivity(activity, i)}
-                                                    style={{marginLeft:"20px"}}
-                                                />
+                                                <IconButton onClick={canEdit ? e => deleteActivity(i) : null} disabled={!canEdit}>
+                                                    <DeleteIcon htmlColor={colors.black}/>
+                                                </IconButton>
+                                                <IconButton onClick={canEdit ? e => editActivity(i) : null} disabled={!canEdit}>
+                                                    <EditIcon htmlColor={colors.black}/>
+                                                </IconButton>
                                             </TableCell>
                                         </TableRow>
                                     );

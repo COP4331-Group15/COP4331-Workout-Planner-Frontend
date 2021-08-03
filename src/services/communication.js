@@ -142,7 +142,6 @@ export const deleteExerciseData = async (exerciseId) => {
     const header = await createToken();
     const uuid = firebase.auth().currentUser.uid;
     console.log(exerciseId);
-    // const exerciseID = firebase.auth().currentUser.exerciseId;
 
     try{
         console.log(url + "/exercise/" + uuid + "/" + exerciseId);
