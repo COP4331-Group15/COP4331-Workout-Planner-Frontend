@@ -64,9 +64,9 @@ function App() {
         </>
       ) : (
         <>
-        <Route path="/" exact><Redirect to="/dashboard" /></Route>
+        <Route path="/" exact component={Home}/>
         <Route path="/signin"><Redirect to="/dashboard"/></Route>
-        <Route path="/signup"><Redirect to="/dashboard"/></Route>
+        <Route path="/signup"><Redirect to="/"/></Route>
         <Route path="/dashboard"><Dashboard /></Route>
         <Route path="/edit"><Edit_Split /></Route>
         <Route path="/edit_Exercise"><Edit_Exercise /></Route>

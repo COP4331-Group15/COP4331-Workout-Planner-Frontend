@@ -43,8 +43,10 @@ function SignUp(props) {
 
   const handleSubmit = e => {
     props.firebase.auth.createUserWithEmailAndPassword(user.email, user.password)
-    .then(authUser => {
-      sendVerificationEmail();
+    .then(async authUser => {
+      await sendVerificationEmail();
+      props.history.push("/");
+      await firebase.auth().signOut();
       // Create a user in the Firebase realtime database
       return props.firebase
         .user(authUser.user.uid)
@@ -54,24 +56,17 @@ function SignUp(props) {
           activities: 'not set'
         });
     })
-    .then(async authUser => {
+    .then(authUser => {
       setUser(initialUser);
-      await firebase.auth().signOut();
-      props.history.push("/signin");
     })
     .catch(error => {
       setUser({...user, error: error.message})
     });
   }
 
-  const sendVerificationEmail = () => {
-    firebase.auth().currentUser.sendEmailVerification()
-    .then(() => {
-      window.alert("The Verification link is sent to your e-mail address. please check your inbox to verify your account");
-    })
-    .catch(error => {
-      console.error(error);
-    })
+  const sendVerificationEmail = async () => {
+    await firebase.auth().currentUser.sendEmailVerification()
+    window.alert("The Verification link is sent to your e-mail address. please check your inbox to verify your account");
   }
 
   const isValid = user.name === '' || user.email === '' || user.password === '';
