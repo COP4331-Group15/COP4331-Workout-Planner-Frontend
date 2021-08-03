@@ -60,6 +60,7 @@ export const getExercisesDataDateSpecifc = async (year, month, day) => {
 
     try {
         const res = await axios.get(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/exercises", header);
+        console.log(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/exercises");
         return res.data;
     } catch (e) {
         console.error(e);
@@ -120,6 +121,7 @@ export const patchCalendarData = async (year, month, day, workout) => {
 
     try {
         const res = await axios.patch(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/update", workout, header);
+        console.log(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/update")
         return;
     } catch (e) {
         console.error(e);

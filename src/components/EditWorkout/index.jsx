@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withFirebase } from '../../services';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,6 +62,14 @@ function AddWorkout(props) {
 
         return hour * 60 + min;
     }
+
+    useEffect(() => {
+        setWorkout({
+            startTime: fromIntToTimeString(inWorkout?.StartTime ?? 480),
+            unworkable: (inWorkout?.Unworkable ?? 0 == 1),
+            exercises: inWorkout?.Exercises ?? [],
+        })
+    }, [inWorkout]);
 
 
     // Set default activity object

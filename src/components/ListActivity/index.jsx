@@ -15,34 +15,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import { colors } from '@material-ui/core';
 
 function ActivityList(props) {
-    const {loading, activities, editActivity,setOpenSnackbar, setSnackbarMsg, setEditing, canEdit} = props;
+    const {loading, activities, editActivity, setOpenSnackbar, setSnackbarMsg, setEditing, canEdit, deleteClicked} = props;
 
-    const deleteActivity = (i) => {
-        // Get key of activity in firebase
-       const activityKey = Object.keys(activities)[i];
-       // Connect to our firebase API
-       const emptyActivity = {
-        muscleGroup: null,
-        name: null,
-        sets: null,
-        repetitions: null,
-        duration: null,
-        resistance: null,
-        date: null
-       };
-
-       props.firebase.updateActivity(props.authUser.uid, emptyActivity, activityKey);
-
-       // Show notification
-       setOpenSnackbar(true);
-       setSnackbarMsg('Deleted activity');
-       setTimeout(() => {
-        setOpenSnackbar(false)
-       }, 3000)
-
-       // stop editing
-       setEditing(false);
-    }
+    console.log(activities);
 
     return (
         <>
@@ -72,7 +47,7 @@ function ActivityList(props) {
                             <TableBody>
                             {
                                 Object.values(activities).map((activity, i) => {
-                                    let {Name, MuscleGroup, Sets, Repetitions, Duration, Resistance} = activity;
+                                    let {Name, MuscleGroup, Sets, Repetitions, Duration, Resistance, Key} = activity;
                                     return (
                                         <TableRow key={i}>
                                             <TableCell>{Name ?? "New Exercise"}</TableCell>
@@ -82,10 +57,10 @@ function ActivityList(props) {
                                             <TableCell>{Duration ?? 0}</TableCell>
                                             <TableCell>{Resistance ?? 0} </TableCell>
                                             <TableCell>
-                                                <IconButton onClick={canEdit ? e => deleteActivity(i) : null} disabled={!canEdit}>
+                                                <IconButton onClick={e => deleteClicked(i)} disabled={!canEdit}>
                                                     <DeleteIcon htmlColor={colors.black}/>
                                                 </IconButton>
-                                                <IconButton onClick={canEdit ? e => editActivity(i) : null} disabled={!canEdit}>
+                                                <IconButton onClick={e => editActivity(i)} disabled={canEdit}>
                                                     <EditIcon htmlColor={colors.black}/>
                                                 </IconButton>
                                             </TableCell>

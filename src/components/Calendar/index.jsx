@@ -12,7 +12,7 @@ import CalendarHead from './calendar-head';
 import AddActivity from '../AddActivity';
 import EditActivity from '../EditActivity';
 import ActivityList from '../ListActivity';
-import { deleteCalendarData, deleteExerciseData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, postWorkoutDateSpecific } from '../../services/communication';
+import { deleteCalendarData, deleteExerciseData, getCalendarData, getExercisesDataDateSpecifc, getExercisesDataGeneric, patchCalendarData, postExerciseData, postWorkoutData, postWorkoutDateSpecific } from '../../services/communication';
 
 import AddWorkout from '../AddWorkout'
 import EditWorkout from '../EditWorkout';
@@ -60,13 +60,15 @@ function Calendar(props) {
         }
         // Get the user's workout for that day
         const selectedWorkout = calendarData.calendar[day - 1];
-
         setTodaysWorkout(selectedWorkout);
+
         // Get the user's exercises for that day
         // (Depends on the type of workout)
-        if (!selectedWorkout) {
+        if (!selectedWorkout.Key) {
             // No key means it is a date-specific workout
-            getExercisesDataDateSpecifc(new Date().getFullYear, currentMonthNum(), day).then((e) => setTodaysExercises(e));
+            console.log("Date speciifc!");
+            getExercisesDataDateSpecifc(new Date().getFullYear(), currentMonthNum(), day).then((e) =>{
+                setTodaysExercises(e.exercises)});
         } else {
             const key = selectedWorkout.Key;
             getExercisesDataGeneric(key).then((e) => {
@@ -87,7 +89,6 @@ function Calendar(props) {
     const [snackbarMsg, setSnackbarMsg] = useState(null);
 
     /*** ACTIVITY LIST ***/
-    const [activities, setActivities] = useState(true);
     const [loading, setLoading] = useState([]);
     const [editing, setEditing] = useState(false);
 
@@ -102,21 +103,13 @@ function Calendar(props) {
             setCalendarData(data);
             console.log("Got data");
             console.log(data);
+
+            const selectedWorkout = data.calendar[selectedDay.day - 1];
+            setTodaysWorkout(selectedWorkout);
         });
     };
 
     useEffect(() => retrieveData(), []);
-
-    /*** EDIT AN ACTIVITY ***/
-    const [activity, setActivity] = useState(null);
-    const [activityKey, setActivityKey] = useState(null);
-
-    const editActivity = (activity, i) => {
-        setActivityKey(Object.keys(activities)[i]);
-        console.log(Object.keys(activities)[i]);
-        /* setEditing(true); */
-        setActivity(activity);
-    }
 
     const handleNewWorkout = async newWorkout => {
         // Post new workout to the server
@@ -137,6 +130,36 @@ function Calendar(props) {
         await deleteCalendarData(new Date().getFullYear(), date.month, date.day);
         // Ask for new calendar data
         retrieveData();
+    }
+
+    const addActivity = async activity =>  {
+        console.log(activity);
+        // Add this activity to the server
+        const key = (await postExerciseData(activity)).data.name;
+        console.log(key);
+
+        // If we don't have exercises, create one
+        const relevantWorkout = calendarData.calendar[selectedDay.day - 1];
+        console.log(relevantWorkout);
+        if(!relevantWorkout.Exercises) relevantWorkout.Exercises = [];
+
+        // Add this key to our workout
+        relevantWorkout.Exercises.push(key);
+
+        // Update this workout on the server
+        await patchCalendarData(new Date().getFullYear(), selectedDay.month, selectedDay.day, {"startTime": relevantWorkout.StartTime, "unworkable": relevantWorkout.Unworkable, "exercises": relevantWorkout.Exercises});
+
+        setSnackbarMsg('Added new exercise');
+        setTimeout(() => {
+            setOpenSnackbar(false)
+        }, 3000);
+
+        retrieveData();
+    }
+
+    const editActivity = (i) => {
+        // Set activity editing something
+        setEditing(todaysExercises[i]);
     }
 
     const deleteActivityClicked = async activity => {
@@ -185,7 +208,7 @@ function Calendar(props) {
                             <EditWorkout
                                 inWorkout={todaysWorkout}
                                 selectedDay={selectedDay}
-                                    selectedDay={selectedDay} 
+                                selectedDay={selectedDay}
                                 selectedDay={selectedDay}
                                 authUser={props.authUser}
                                 setOpenSnackbar={setOpenSnackbar}
@@ -200,7 +223,7 @@ function Calendar(props) {
                             <h3>Add Custom Workout for {selectedDay.month + 1}-{selectedDay.day} </h3>
                             <AddWorkout
                                 selectedDay={selectedDay}
-                                    selectedDay={selectedDay} 
+                                selectedDay={selectedDay}
                                 selectedDay={selectedDay}
                                 authUser={props.authUser}
                                 setOpenSnackbar={setOpenSnackbar}
@@ -232,45 +255,45 @@ function Calendar(props) {
                                 canEdit={!todaysWorkout.Key}
                                 setOpenSnackbar={setOpenSnackbar}
                                 setSnackbarMsg={setSnackbarMsg}
+                                deleteClicked={deleteActivityClicked}
                                 editActivity={editActivity}
                                 setEditing={setEditing}
-                                deleteClicked={deleteActivityClicked}
                             />
                         </Paper>
                     </Grid>
-
                     <Grid item xs={4}>
-                        <Paper className="paper">
-                            {editing
-                                ?
-                                <>
-                                    <h3>Edit Exercise on {selectedDay.month + 1}-{selectedDay.day} </h3>
-                                    <EditActivity
-                                        activity={activity}
-                                        activityKey={activityKey}
-                                        selectedDay={selectedDay}
-                                        selectedDay={selectedDay} 
-                                        selectedDay={selectedDay}
-                                        authUser={props.authUser}
-                                        setEditing={null/* setEditing */}
-                                        setOpenSnackbar={setOpenSnackbar}
-                                        setSnackbarMsg={setSnackbarMsg}
-                                    />
-                                </>
-                                :
-                                <>
-                                    <h3>Add Exercise for {selectedDay.month + 1}-{selectedDay.day} </h3>
-                                    <AddActivity
-                                        selectedDay={selectedDay}
-                                    selectedDay={selectedDay} 
-                                        selectedDay={selectedDay}
-                                        authUser={props.authUser}
-                                        setOpenSnackbar={setOpenSnackbar}
-                                        setSnackbarMsg={setSnackbarMsg}
-                                    />
-                                </>
-                            }
-                        </Paper>
+                        {todaysWorkout.Key ?
+                            <></> : <><Paper className="paper">
+                                {editing
+                                    ?
+                                    <>
+                                        <h3>Edit Exercise on {selectedDay.month + 1}-{selectedDay.day} </h3>
+                                        <EditActivity
+                                            activity={editing}
+                                            selectedDay={selectedDay}
+                                            selectedDay={selectedDay}
+                                            selectedDay={selectedDay}
+                                            authUser={props.authUser}
+                                            setEditing={null/* setEditing */}
+                                            setOpenSnackbar={setOpenSnackbar}
+                                            setSnackbarMsg={setSnackbarMsg}
+                                        />
+                                    </>
+                                    :
+                                    <>
+                                        <h3>Add Exercise for {selectedDay.month + 1}-{selectedDay.day} </h3>
+                                        <AddActivity
+                                            selectedDay={selectedDay}
+                                            selectedDay={selectedDay}
+                                            selectedDay={selectedDay}
+                                            authUser={props.authUser}
+                                            setOpenSnackbar={setOpenSnackbar}
+                                            setSnackbarMsg={setSnackbarMsg}
+                                            postExerciseData={addActivity}
+                                        />
+                                    </>
+                                }
+                            </Paper></>}
                     </Grid>
                 </>
             )}
