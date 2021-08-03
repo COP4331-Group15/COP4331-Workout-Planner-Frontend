@@ -35,6 +35,7 @@ export const getCalendarData = async (year, month) => {
 
     try {
         const res = await axios.get(url + "/calendar/" + uuid + "/" + year + "/" + month, header);
+        console.log(url + "/calendar/" + uuid + "/" + year + "/" + month)
         return res.data;
     } catch (e) {
         console.error(e);
@@ -77,6 +78,18 @@ export const postWorkoutData = async (workout) => {
     }
 }
 
+export const postWorkoutDateSpecific = async (year, month, day, workout) => {
+    const header = await createToken();
+    const uuid = firebase.auth().currentUser.uid;
+
+    try {
+        const res = await axios.post(url + "/calendar/" + uuid + "/" + year + "/" + month + "/" + day + "/create", workout, header);
+        return res.data;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const postExerciseData = async (exercise) => {
     const header = await createToken();
     const uuid = firebase.auth().currentUser.uid;
@@ -92,11 +105,8 @@ export const postExerciseData = async (exercise) => {
 export const patchExerciseData = async (exercise, exerciseId) => {
     const header = await createToken();
     const uuid = firebase.auth().currentUser.uid;
-    console.log(exerciseId);
-    // const exerciseID = firebase.auth().currentUser.exerciseId;
 
     try{
-        console.log(url + "/exercise/" + uuid + "/" + exerciseId);
         const res = await axios.patch(url + "/exercise/" + uuid + "/" + exerciseId + "/update", exercise, header);
         return;
     } catch (e) {

@@ -30,13 +30,13 @@ function EditActivity(props) {
 
     // Set default activity object
     const defaultActivity = {
-        muscleGroup: activity.muscleGroup,
-        name: activity.name,
-        sets: activity.sets,
-        repetitions: activity.repetition,
-        duration: activity.duration,
-        resistance: activity.resistance,
-        date: activity.date
+        muscleGroup: activity?.muscleGroup ?? "Default",
+        name: activity?.name ?? "New Exercise",
+        sets: activity?.sets ?? 0,
+        repetitions: activity?.repetition ?? 0,
+        duration: activity?.duration ?? 0,
+        resistance: activity?.resistance ?? 0,
+        date: activity?.date
 
     }
 

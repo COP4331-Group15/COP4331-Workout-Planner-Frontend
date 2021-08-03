@@ -73,12 +73,12 @@ function ActivityList(props) {
                                     let {Name, MuscleGroup, Sets, Repetitions, Duration, Resistance} = activity;
                                     return (
                                         <TableRow key={i}>
-                                            <TableCell>{Name}</TableCell>
-                                            <TableCell>{MuscleGroup}</TableCell>
-                                            <TableCell>{Sets}</TableCell>
-                                            <TableCell>{Repetitions}</TableCell>
-                                            <TableCell>{Duration}</TableCell>
-                                            <TableCell>{Resistance} </TableCell>
+                                            <TableCell>{Name ?? "New Exercise"}</TableCell>
+                                            <TableCell>{MuscleGroup ?? "Default"}</TableCell>
+                                            <TableCell>{Sets ?? 0}</TableCell>
+                                            <TableCell>{Repetitions ?? 0}</TableCell>
+                                            <TableCell>{Duration ?? 0}</TableCell>
+                                            <TableCell>{Resistance ?? 0} </TableCell>
                                             <TableCell>
                                                 <DeleteIcon 
                                                     onClick={e => deleteActivity(i)}

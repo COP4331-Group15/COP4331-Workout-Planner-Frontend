@@ -39,26 +39,7 @@ const GreenCheckbox = withStyles({
 function AddWorkout(props) {
     const classes = useStyles();
 
-    const {authUser, firebase, selectedDay, setOpenSnackbar, setSnackbarMsg, onSubmit} = props;
-
-    // Set default activity object
-    const defaultWorkout = {
-        startTime: "08:00",
-        unworkable: false,
-        exercises: [],
-    }
-
-    const [workout, setWorkout] = useState(defaultWorkout);
-
-    const handleChange = e => {
-        const { name, value } = e.target
-
-        setWorkout({
-            ...workout,
-            [name]: value});
-    }
-
-    const isValid = workout.startTime === '';
+    const {authUser, firebase, selectedDay, setOpenSnackbar, setSnackbarMsg, inWorkout, onSubmit, handleUpdateClick, handleDeleteClick} = props;
 
     const fromIntToTimeString = startInt => {
         let hourSymbol = Math.floor(startInt / 60);
@@ -82,69 +63,41 @@ function AddWorkout(props) {
         return hour * 60 + min;
     }
 
+
+    // Set default activity object
+    const defaultWorkout = {
+        startTime: fromIntToTimeString(inWorkout?.StartTime ?? 480),
+        unworkable: (inWorkout?.Unworkable ?? 0 == 1),
+        exercises: inWorkout?.Exercises ?? [],
+    }
+
+    const [workout, setWorkout] = useState(defaultWorkout);
+
+    const handleChange = e => {
+        const { name, value } = e.target
+
+        setWorkout({
+            ...workout,
+            [name]: value});
+    }
+
+    const isValid = workout.startTime === '';
+
+    
     const handleSubmit = () => {
         // Create our new workout, parsed for transmission
         const newWorkout = {
             startTime: fromStringToTimeInt(workout.startTime),
             unworkable: workout.unworkable ? 1 : 0,
-            exercises: []
+            exercises: workout.exercises
         }
         // Call function
-        onSubmit(newWorkout);
+        handleUpdateClick(newWorkout);
     }
 
-    /* // Add the activity to firebase via the API made in this app
-    const handleSubmit = () => {
-        if (authUser) {
-
-            // postExerciseData(activity).then(key => {
-            //     console.log(key);})
-
-                //workout.exercise.push(key);
-
-                patchCalendarData(selectedDay.year,selectedDay.month ,selectedDay.day,workout).then(data => {
-                    console.log(data);
-                    // console.log(newMonth);
-                    // console.log(selectedDay.month);
-                   });
-            
-
-            firebase.addWorkout(uid, workout);
-            setWorkout(defaultWorkout);
-            // Show notification
-            setOpenSnackbar(true);
-            setSnackbarMsg('Added Workout');
-            setTimeout(() => {
-                setOpenSnackbar(false)
-            }, 3000)
-        }
-    } */
-
-    /* const handleSubmit2 = () => {
-        if (authUser) {
-
-            // postExerciseData(activity).then(key => {
-            //     console.log(key);})
-
-                //workout.exercise.push(key);
-
-                patchCalendarData(selectedDay.year,selectedDay.month ,selectedDay.day,workout).then(data => {
-                    console.log(data);
-                    // console.log(newMonth);
-                    // console.log(selectedDay.month);
-                   });
-            
-
-            firebase.addWorkout(uid, workout);
-            setWorkout(defaultWorkout);
-            // Show notification
-            setOpenSnackbar(true);
-            setSnackbarMsg('Workout Deleted');
-            setTimeout(() => {
-                setOpenSnackbar(false)
-            }, 3000)
-        }
-    } */
+    const handleDelete = () => {
+        handleDeleteClick(selectedDay);
+    }
 
     const [state, setState] = React.useState({
         checkedG: false,
@@ -183,7 +136,17 @@ function AddWorkout(props) {
                 onClick={handleSubmit}
                 disabled={isValid}
             >
-            Add Custom Workout
+            Update Custom Workout
+            </Button>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={handleDelete}
+                disabled={isValid}
+            >
+            Delete Custom Workout
             </Button>
         </form>
     )
